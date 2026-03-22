@@ -111,7 +111,12 @@
         }
         .barber-radio:checked ~ span { color: #F5B800; font-weight: 900; }
 
-        input[type="text"], input[type="date"], input[type="time"] { font-size: 16px !important; min-height: 52px; }
+        /* Ajuste inputs Mobile para se adaptarem bem e Dark Mode no calendário/relogio */
+        input[type="text"], input[type="date"], input[type="time"] { 
+            font-size: 16px !important; 
+            min-height: 52px; 
+            color-scheme: dark; /* Força o teclado/seletor a ser dark mode */
+        }
         ::-webkit-calendar-picker-indicator { filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(10deg); cursor: pointer; width: 24px; height: 24px; }
         
         @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -180,8 +185,8 @@
         </div>
     </div>
 
-    <!-- Navbar Mobile -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-2 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5">
+    <!-- Navbar Mobile com z-index elevadíssimo (200) para evitar problemas -->
+    <nav id="navbar" class="fixed w-full z-[200] transition-all duration-300 py-2 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5">
         <div class="container mx-auto px-4 flex justify-between items-center relative z-20">
             <a href="#" class="flex items-center active:scale-95 transition-transform z-20">
                 <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-12 h-12 object-contain">
@@ -192,7 +197,8 @@
             </div>
         </div>
         
-        <div id="mobile-menu" class="fixed inset-0 w-full h-[100svh] bg-[#050505]/98 backdrop-blur-3xl flex flex-col items-center justify-center space-y-6 transition-all duration-300 opacity-0 pointer-events-none z-40">
+        <!-- Menu Mobile totalmente sólido para leitura perfeita -->
+        <div id="mobile-menu" class="fixed inset-0 w-full h-[100svh] bg-[#050505] flex flex-col items-center justify-center space-y-6 transition-all duration-300 opacity-0 pointer-events-none z-[190]">
             <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-24 h-24 object-contain mb-4">
             <a href="#inicio" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">INÍCIO</a>
             <a href="#servicos" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">MENU SERVIÇOS</a>
@@ -278,7 +284,7 @@
                     </ul>
                 </div>
 
-                <!-- Estética & Pai/Filho (Juntos para poupar espaço mobile) -->
+                <!-- Estética & Pai/Filho -->
                 <div class="glass-card p-5 reveal">
                     <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
                         <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-fire text-silver text-sm"></i></div><h3 class="text-base font-bold text-white uppercase tracking-wider">Estética & Promos</h3>
@@ -294,7 +300,7 @@
         </div>
     </section>
 
-    <!-- SECÇÃO: OS MESTRES (A Seleção de Barbeiro) -->
+    <!-- SECÇÃO: OS MESTRES -->
     <section id="equipa" class="py-16 bg-[#0a0a0a] relative border-y border-white/5">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-10 reveal">
@@ -338,88 +344,28 @@
         </div>
     </section>
 
-    <!-- SECÇÃO LOCALIZAÇÃO (Premium & Mobile) -->
-    <section id="localizacao" class="py-16 bg-dark relative border-t border-white/5">
+    <!-- SECÇÃO AVALIAÇÕES (Compacta Mobile) -->
+    <section id="depoimentos" class="py-16 bg-dark relative border-b border-white/5 overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
-            <div class="glass-card p-5 rounded-[2rem] border-gold/20 reveal flex flex-col space-y-6 bg-[#111]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-                <div class="text-center">
-                    <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Onde a Mágica Acontece</span>
-                    <h3 class="text-2xl font-bold text-white mb-1 flex items-center justify-center gap-2"><i class="fas fa-map-marker-alt text-gold"></i> O Nosso Espaço</h3>
-                    <p class="text-gray-400 text-xs px-2 mt-2">Ambiente climatizado, Wi-Fi, cerveja gelada e a melhor resenha da cidade enquanto espera.</p>
-                </div>
-                
-                <div class="w-full h-[220px] rounded-2xl overflow-hidden map-container border border-white/10 shadow-inner relative">
-                    <!-- Mapa Embutido (Substitua a propriedade 'src' pelo embed link real caso tenha um) -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15873.914282363532!2d-37.80806461975098!3d-6.76342819999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDUnNDguMyJTIDM3wrA0OCcyOS4wIlc!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-
-                <a href="https://www.google.com/maps/search/Rua+Domingo+De+Mendeiros/@-6.7661,-37.7978,823m/data=!3m1!1e3?hl=pt-BR" target="_blank" class="bg-white/10 border border-white/20 active:bg-gold/20 text-white font-bold py-4 rounded-xl uppercase text-xs tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg">
-                    <i class="fas fa-location-arrow text-gold"></i> Abrir Rota no GPS
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECÇÃO AVALIAÇÕES (Carrossel Swipe Mobile) -->
-    <section id="depoimentos" class="py-16 bg-[#0a0a0a] relative border-t border-white/5 overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-gold/5 via-dark to-dark z-0"></div>
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-8 reveal">
+            <div class="text-center mb-10 reveal">
                 <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Prova Social</span>
                 <h2 class="text-3xl font-logo text-white">Voz dos Clientes</h2>
-                <div class="md:hidden mt-3 text-gold flex justify-center items-center gap-2 animate-pulse text-[10px] uppercase tracking-widest bg-gold/10 inline-flex px-3 py-1 rounded-full">
-                    <i class="fas fa-chevron-left"></i> Deslize para ler <i class="fas fa-chevron-right"></i>
-                </div>
             </div>
-
-            <!-- Swipe/Carousel Container (App-like behavior) -->
-            <div class="flex overflow-x-auto gap-5 pb-8 no-scrollbar snap-x snap-mandatory px-4 -mx-4 max-w-7xl mx-auto items-stretch">
-                
-                <!-- Cliente 1 -->
-                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/90 min-w-[85vw] md:min-w-[320px] snap-center border-white/10 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
-                            <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                        <h4 class="text-white font-bold text-base mb-0.5">Marcos Silva</h4>
-                        <span class="text-gold text-[9px] uppercase tracking-widest font-black inline-block mb-3">Cliente Fiel</span>
-                        <p class="text-gray-300 italic text-xs leading-relaxed">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é super rápido e prático. O ambiente é sensacional e o atendimento é de patrão!"</p>
+            <div class="flex flex-col gap-5 max-w-sm mx-auto">
+                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/80">
+                    <div class="flex justify-between items-start mb-4">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold">
+                        <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     </div>
+                    <h4 class="text-white font-bold text-sm">Marcos Silva</h4>
+                    <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é rápido e prático."</p>
                 </div>
-                
-                <!-- Cliente 2 -->
-                <div class="glass-card p-6 rounded-3xl reveal border-gold/40 shadow-[0_0_20px_rgba(245,184,0,0.15)] bg-[#1a1a1a] min-w-[85vw] md:min-w-[320px] snap-center transform md:-translate-y-4 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
-                            <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                        <h4 class="text-white font-bold text-base mb-0.5">Roberto Alves</h4>
-                        <span class="text-silver text-[9px] uppercase tracking-widest font-black inline-block mb-3">Pai & Filho</span>
-                        <p class="text-gray-300 italic text-xs leading-relaxed">"Trago sempre o meu filho na terça-feira para aproveitar a promoção. O Zé tem uma paciência incrível com ele. Melhor barbearia da região!"</p>
-                    </div>
-                </div>
-
-                <!-- Cliente 3 -->
-                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/90 min-w-[85vw] md:min-w-[320px] snap-center border-white/10 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <img src="https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
-                            <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                        <h4 class="text-white font-bold text-base mb-0.5">Felipe Costa</h4>
-                        <span class="text-gold text-[9px] uppercase tracking-widest font-black inline-block mb-3">Combo VIP</span>
-                        <p class="text-gray-300 italic text-xs leading-relaxed">"A barba lenhador ficou perfeita. Agendar pelo telemóvel e não apanhar fila não tem preço. Serviço de excelência do início ao fim."</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Formulário Final (Checkout) -->
-    <section id="agendamento" class="py-16 bg-[#050505] relative border-t border-white/5">
+    <!-- Formulário Final (Checkout - Aumentado o Padding Bottom para não esconder campos) -->
+    <section id="agendamento" class="py-16 bg-[#050505] relative border-t border-white/5 pb-40 md:pb-32">
         <div class="container mx-auto px-4 relative z-10">
             <div id="form-container" class="max-w-md mx-auto glass-card border border-gold/30 rounded-[2rem] p-5 shadow-[0_0_40px_rgba(245,184,0,0.1)] reveal transition-all duration-300 bg-[#111]/90">
                 
@@ -503,10 +449,11 @@
         const numeroWhatsApp = "558396340618"; 
         let servicosSelecionados = [];
         let totalEstimado = 0;
+        let isAtCheckout = false;
 
-        // Elementos Globais
         const smartCart = document.getElementById('smart-cart');
         const genericBtn = document.getElementById('generic-btn');
+        const wppBtn = document.querySelector('.fixed.bottom-28'); // Botao flutuante WPP
 
         document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
@@ -520,6 +467,14 @@
             
             const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Observador para esconder botões na área do agendamento (Garante funcionamento do teclado no mobile)
+            const observerCheckout = new IntersectionObserver((entries) => {
+                isAtCheckout = entries[0].isIntersecting;
+                atualizarCarrinhoFlutuante();
+            }, { threshold: 0.1 });
+            const agendamentoSec = document.getElementById('agendamento');
+            if (agendamentoSec) observerCheckout.observe(agendamentoSec);
         });
 
         const menuBtn = document.getElementById('mobile-menu-btn');
@@ -547,13 +502,11 @@
             setTimeout(() => { toast.classList.add('hidden'); }, 2000);
         }
 
-        // LÓGICA DO CARRINHO INTELIGENTE
         window.toggleServico = function(elemento, nomeServico, preco) {
             if (navigator.vibrate) navigator.vibrate(30); 
 
             const index = servicosSelecionados.findIndex(s => s.nome === nomeServico);
             
-            // Efeito Pop
             elemento.classList.remove('service-pop');
             void elemento.offsetWidth;
             elemento.classList.add('service-pop');
@@ -577,12 +530,18 @@
             document.getElementById('cart-count').innerText = count;
             document.getElementById('cart-total').innerText = `R$ ${totalEstimado}`;
             
-            if(count > 0) {
-                genericBtn.classList.add('translate-y-[150%]'); // Esconde botão genérico
-                smartCart.classList.remove('translate-y-full'); // Mostra carrinho
+            // Esconder flutuantes se estivermos no checkout, para não tapar o teclado/formulário
+            if (isAtCheckout) {
+                if (genericBtn) genericBtn.classList.add('translate-y-[150%]');
+                if (smartCart) smartCart.classList.add('translate-y-full');
             } else {
-                genericBtn.classList.remove('translate-y-[150%]');
-                smartCart.classList.add('translate-y-full');
+                if(count > 0) {
+                    if (genericBtn) genericBtn.classList.add('translate-y-[150%]');
+                    if (smartCart) smartCart.classList.remove('translate-y-full');
+                } else {
+                    if (genericBtn) genericBtn.classList.remove('translate-y-[150%]');
+                    if (smartCart) smartCart.classList.add('translate-y-full');
+                }
             }
         }
 
@@ -602,20 +561,16 @@
             document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
             document.getElementById('form-container').classList.add('ring-2', 'ring-gold', 'bg-gold/5');
             setTimeout(() => document.getElementById('form-container').classList.remove('ring-2', 'ring-gold', 'bg-gold/5'), 800);
-            smartCart.classList.add('translate-y-full'); // Esconde carrinho para não atrapalhar form
         };
 
-        // LÓGICA DE ESCOLHA DIRETA DE BARBEIRO
         window.selecionarBarbeiroDireto = function(barbeiroNome) {
             if (navigator.vibrate) navigator.vibrate([40, 20, 40]);
             
-            // Marca o Avatar no formulário
             if(barbeiroNome === 'Zé') document.getElementById('radio-ze').checked = true;
             if(barbeiroNome === 'Jonas') document.getElementById('radio-jonas').checked = true;
             
             mostrarToast("👍 " + barbeiroNome + " Selecionado!");
             
-            // Em vez de ir para o form vazio, leva para os serviços para ele montar o ticket
             setTimeout(() => {
                 document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
             }, 600);
