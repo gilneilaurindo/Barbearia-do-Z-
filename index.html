@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT" class="scroll-smooth md:cursor-none">
+<html lang="pt-PT" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -84,82 +84,80 @@
             animation: shine 4s infinite; z-index: 10; pointer-events: none;
         }
 
-        @media (min-width: 768px) {
-            .cursor-dot, .cursor-outline {
-                position: fixed; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none;
-            }
-            .cursor-dot { width: 8px; height: 8px; background-color: #F5B800; }
-            .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(245, 184, 0, 0.6); transition: width 0.15s, height 0.15s; }
-        }
-
         .noise-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 40; opacity: 0.04;
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* Animações UI */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translate(0); }
 
         .btn-glow { box-shadow: 0 0 20px rgba(245, 184, 0, 0.4); transition: all 0.3s ease; }
         .btn-glow:active { transform: scale(0.95); box-shadow: 0 0 10px rgba(245, 184, 0, 0.6); }
-        .btn-glow:hover { box-shadow: 0 0 35px rgba(245, 184, 0, 0.7); }
 
         .glass-card {
-            background: rgba(18, 18, 18, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(245, 184, 0, 0.15); border-radius: 24px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(245, 184, 0, 0.15); border-radius: 20px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
 
         .service-item { transition: all 0.2s ease; cursor: pointer; }
+        
         /* Animação Assertiva ao clicar no serviço */
-        .service-pop { animation: popService 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .service-pop { animation: popService 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes popService {
             0% { transform: scale(1); box-shadow: 0 0 0 rgba(245, 184, 0, 0); }
-            50% { transform: scale(0.95); box-shadow: 0 0 30px rgba(245, 184, 0, 0.8); background-color: rgba(245, 184, 0, 0.2); }
-            100% { transform: scale(1); box-shadow: 0 0 15px rgba(245, 184, 0, 0.3); background-color: rgba(245, 184, 0, 0.15); }
+            50% { transform: scale(0.96); box-shadow: 0 0 20px rgba(245, 184, 0, 0.6); background-color: rgba(245, 184, 0, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 184, 0, 0.2); background-color: rgba(245, 184, 0, 0.15); }
         }
 
-        /* Ajuste inputs Mobile */
-        input[type="text"], input[type="date"], input[type="time"] { font-size: 16px !important; }
-        ::-webkit-calendar-picker-indicator { filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(10deg); cursor: pointer; }
+        /* Ajuste inputs Mobile - Foco Total na Usabilidade */
+        input[type="text"], input[type="date"], input[type="time"] { font-size: 16px !important; min-height: 52px; }
+        ::-webkit-calendar-picker-indicator { filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(10deg); cursor: pointer; width: 24px; height: 24px; }
         
         /* Letreiros Animados */
         @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-        
         .animate-marquee-left { animation: marquee-left 25s linear infinite; }
-        .animate-marquee-right { animation: marquee-right 30s linear infinite; }
 
-        /* Animação do Toast central e notificações FOMO */
+        /* Animação do Toast (Aviso de Clique) */
         @keyframes toastFadeTop {
             0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
             10%, 90% { opacity: 1; transform: translate(-50%, 0) scale(1); }
             100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
         }
-        .toast-anim { animation: toastFadeTop 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .toast-anim { animation: toastFadeTop 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
+        /* Animação Notificação FOMO Push (Top) */
+        @keyframes fomoDrop {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10%, 90% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; }
+        }
+        .fomo-anim { animation: fomoDrop 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .text-outline { -webkit-text-stroke: 1px rgba(245, 184, 0, 0.3); color: transparent; }
 
         .selected-service {
             border-color: #F5B800 !important;
             background-color: rgba(245, 184, 0, 0.15) !important;
-            box-shadow: 0 0 15px rgba(245, 184, 0, 0.3);
+        }
+        
+        /* Checkbox Customizado Mobile-like */
+        .check-circle {
+            width: 20px; height: 20px; border-radius: 50%; border: 2px solid #555;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .selected-service .check-circle {
+            border-color: #F5B800; background-color: #F5B800;
         }
         
         /* Estilo do Mapa Google Escuro */
-        .map-container iframe {
-            filter: invert(90%) hue-rotate(180deg) brightness(80%) contrast(110%);
-            border-radius: 1.5rem;
-        }
+        .map-container iframe { filter: invert(90%) hue-rotate(180deg) brightness(80%) contrast(110%); border-radius: 1.5rem; }
     </style>
 </head>
-<body class="antialiased selection:bg-gold selection:text-dark overflow-hidden">
+<body class="antialiased selection:bg-gold selection:text-dark overflow-hidden bg-dark">
 
-    <div class="cursor-dot hidden md:block"></div>
-    <div class="cursor-outline hidden md:block"></div>
     <div class="noise-overlay"></div>
 
     <!-- Barra de Progresso de Leitura -->
@@ -167,212 +165,206 @@
         <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold-dark via-gold to-gold-light transition-all duration-100 ease-out shadow-[0_0_15px_#F5B800]" style="width: 0%"></div>
     </div>
 
-    <!-- Botão Flutuante WhatsApp (Sempre Visível) -->
-    <a href="https://wa.me/5511999999999" target="_blank" class="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-[100] bg-[#25D366] text-white w-14 h-14 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.5)] hover:scale-110 transition-transform flex items-center justify-center animate-bounce border-2 border-white/20">
-        <i class="fab fa-whatsapp text-3xl"></i>
+    <!-- Botão Flutuante WhatsApp (Sempre Visível) - Canto Inferior Direito -->
+    <a href="https://wa.me/558396340618" target="_blank" class="fixed bottom-28 right-4 md:bottom-8 md:right-8 z-[100] bg-[#25D366] text-white w-12 h-12 rounded-full shadow-[0_0_15px_rgba(37,211,102,0.4)] flex items-center justify-center border-2 border-white/20 active:scale-90 transition-transform">
+        <i class="fab fa-whatsapp text-2xl"></i>
     </a>
 
-    <!-- NOTIFICAÇÃO FOMO Fictícia (Alguém Agendou) -->
-    <div id="fomo-notification" class="fixed bottom-32 left-4 md:bottom-8 md:left-8 z-[95] bg-[#0a0a0a]/90 backdrop-blur-md border border-gold/40 rounded-2xl p-3 flex items-center gap-3 shadow-[0_10px_25px_rgba(0,0,0,0.8)] transform translate-y-20 opacity-0 transition-all duration-500 max-w-[260px] pointer-events-none">
-        <div class="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center border border-gold shadow-inner shrink-0">
-            <i class="fas fa-calendar-check text-gold"></i>
+    <!-- NOTIFICAÇÃO FOMO Estilo Push NATIVA (Topo) -->
+    <div id="fomo-notification" class="fixed top-4 left-4 right-4 mx-auto max-w-[340px] z-[150] bg-[#1a1a1a]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transform -translate-y-full opacity-0 pointer-events-none">
+        <div class="w-10 h-10 bg-gradient-to-br from-gold-dark to-gold-light rounded-full flex items-center justify-center shadow-inner shrink-0">
+            <i class="fas fa-cut text-dark text-lg"></i>
         </div>
-        <div class="text-left">
-            <p class="text-white text-xs font-bold leading-tight"><span id="fomo-name" class="text-gold">Lucas</span> acabou de agendar</p>
-            <p class="text-gray-300 text-[10px] font-medium" id="fomo-service">Corte Degradê</p>
-            <p class="text-gray-500 text-[9px] mt-0.5"><i class="far fa-clock"></i> há <span id="fomo-time">2</span> min</p>
+        <div class="text-left flex-1">
+            <div class="flex justify-between items-center mb-0.5">
+                <p class="text-white text-xs font-bold leading-tight"><span id="fomo-name">Alguém</span> agendou agora</p>
+                <span class="text-gray-500 text-[9px]">agora mesmo</span>
+            </div>
+            <p class="text-gold text-[11px] font-medium leading-none" id="fomo-service">Combo VIP</p>
         </div>
     </div>
 
     <!-- Feedback Tátil e Visual (Toast de Sucesso) -->
-    <div id="toast-msg" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-[120] bg-gradient-to-r from-gold-dark to-gold text-dark font-black px-8 py-4 rounded-full shadow-[0_15px_40px_rgba(245,184,0,0.6)] flex items-center gap-3 hidden text-sm md:text-base border-2 border-white/50">
-        <i class="fas fa-check-circle text-2xl animate-pulse"></i> <span id="toast-text" class="tracking-wide">Adicionado ao Ticket!</span>
+    <div id="toast-msg" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[120] bg-gold text-dark font-black px-6 py-2.5 rounded-full shadow-[0_10px_30px_rgba(245,184,0,0.4)] flex items-center gap-2 hidden text-xs md:text-sm border border-gold-light">
+        <i class="fas fa-check-circle text-lg"></i> <span id="toast-text" class="tracking-wide">Adicionado!</span>
     </div>
 
-    <!-- Preloader -->
+    <!-- Preloader Cinematográfico -->
     <div id="preloader" class="fixed inset-0 z-[9999] bg-[#030303] flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out">
-        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé Logo" class="w-32 h-32 md:w-48 md:h-48 object-contain animate-pulse mb-8 drop-shadow-[0_0_20px_rgba(245,184,0,0.4)]">
-        <div class="h-1 w-48 bg-dark-gray rounded-full overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-gold-dark to-gold-light w-0 transition-all duration-[2000ms] ease-out" id="loader-progress"></div>
+        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-28 h-28 object-contain animate-pulse mb-6 drop-shadow-[0_0_15px_rgba(245,184,0,0.3)]">
+        <div class="h-1 w-32 bg-white/10 rounded-full overflow-hidden">
+            <div class="h-full bg-gold w-0 transition-all duration-[1500ms] ease-out" id="loader-progress"></div>
         </div>
     </div>
 
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 bg-[#050505]/95 backdrop-blur-xl border-b border-gold/10">
-        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center relative z-20">
-            <a href="#" class="flex items-center gap-2 active:scale-95 transition-transform z-20">
-                <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo Barbearia" class="w-12 h-12 md:w-16 md:h-16 object-contain">
+    <!-- Navbar Mobile Minimalista -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-2 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5">
+        <div class="container mx-auto px-4 flex justify-between items-center relative z-20">
+            <a href="#" class="flex items-center active:scale-95 transition-transform z-20">
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-12 h-12 object-contain">
             </a>
             
-            <div class="hidden md:flex space-x-8 text-xs font-bold tracking-widest z-20">
-                <a href="#inicio" class="text-gray-300 hover:text-gold transition-colors">INÍCIO</a>
-                <a href="#servicos" class="text-gray-300 hover:text-gold transition-colors">SERVIÇOS</a>
-                <a href="#equipa" class="text-gray-300 hover:text-gold transition-colors">A EQUIPE</a>
-                <a href="#localizacao" class="text-gray-300 hover:text-gold transition-colors">LOCALIZAÇÃO</a>
-            </div>
-            
-            <a href="#agendamento" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark text-xs font-black px-8 py-3 rounded-full hover:scale-105 transition-all duration-300 btn-glow uppercase tracking-wider relative overflow-hidden animate-shine z-20">
-                <i class="fas fa-calendar-check"></i> Agendar
-            </a>
-            
-            <button class="md:hidden text-gold text-2xl p-2 active:scale-90 transition-transform z-50 relative" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <button class="text-white text-xl p-2 active:scale-90 transition-transform z-50 relative bg-white/5 rounded-full w-10 h-10 flex items-center justify-center" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
         </div>
         
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="fixed inset-0 w-full h-[100svh] bg-[#050505]/98 backdrop-blur-2xl flex flex-col items-center justify-center space-y-6 transition-all duration-300 opacity-0 pointer-events-none z-40 pt-10">
-            <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-24 h-24 object-contain mb-2">
-            <a href="#inicio" class="mobile-link text-white font-bold tracking-widest text-2xl active:text-gold transition-colors">INÍCIO</a>
-            <a href="#servicos" class="mobile-link text-white font-bold tracking-widest text-2xl active:text-gold transition-colors">MENU VIP</a>
-            <a href="#equipa" class="mobile-link text-white font-bold tracking-widest text-2xl active:text-gold transition-colors">A EQUIPA</a>
-            <a href="#localizacao" class="mobile-link text-white font-bold tracking-widest text-2xl active:text-gold transition-colors">ONDE ESTAMOS</a>
-            <a href="#agendamento" class="mobile-link bg-gold text-dark px-12 py-4 rounded-full font-black text-sm tracking-widest active:scale-95 transition-transform shadow-[0_0_30px_rgba(245,184,0,0.5)] mt-4 uppercase">AGENDAR AGORA</a>
+        <!-- Menu Mobile de Ecrã Inteiro -->
+        <div id="mobile-menu" class="fixed inset-0 w-full h-[100svh] bg-[#050505]/98 backdrop-blur-3xl flex flex-col items-center justify-center space-y-6 transition-all duration-300 opacity-0 pointer-events-none z-40">
+            <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-24 h-24 object-contain mb-4">
+            <a href="#inicio" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">INÍCIO</a>
+            <a href="#servicos" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">MENU SERVIÇOS</a>
+            <a href="#equipa" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">OS MESTRES</a>
+            <a href="#localizacao" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">LOCALIZAÇÃO</a>
+            <a href="#agendamento" class="mobile-link bg-gold text-dark px-10 py-4 rounded-full font-black text-sm tracking-widest active:scale-95 transition-transform mt-6 uppercase w-[80%] text-center">AGENDAR AGORA</a>
         </div>
     </nav>
 
-    <!-- Botão Agendar Flutuante Mobile Principal -->
-    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] z-[90] md:hidden pointer-events-none">
-        <a href="#agendamento" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark py-4 rounded-2xl font-black uppercase tracking-widest shadow-[0_10px_35px_rgba(245,184,0,0.5)] flex items-center justify-center gap-3 transition-transform text-sm border border-white/40 active:scale-95 relative overflow-hidden animate-shine pointer-events-auto">
-            <i class="fas fa-cut text-lg"></i> Reservar Meu Horário
+    <!-- Botão Agendar Flutuante Principal (Rodapé) -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] z-[90] pointer-events-none">
+        <a href="#agendamento" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark py-4 rounded-2xl font-black uppercase tracking-widest shadow-[0_10px_25px_rgba(245,184,0,0.3)] flex items-center justify-center gap-3 border border-white/40 active:scale-95 relative overflow-hidden animate-shine pointer-events-auto">
+            <i class="fas fa-calendar-check text-lg"></i> Reservar Meu Horário
         </a>
     </div>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="relative min-h-[100svh] flex items-center justify-center pt-16 overflow-hidden bg-dark">
+    <!-- Hero Section Mobile Focus -->
+    <section id="inicio" class="relative min-h-[100svh] flex items-center justify-center pt-10 overflow-hidden bg-dark">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="">
-            <div class="absolute inset-0 bg-gradient-to-b from-dark/40 via-dark/80 to-dark"></div>
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1080&q=80" class="w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Corte">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark/30 via-dark/80 to-dark"></div>
         </div>
         
-        <div class="container mx-auto px-4 relative z-10 text-center flex flex-col items-center mt-10">
+        <div class="container mx-auto px-4 relative z-10 text-center flex flex-col items-center">
             
-            <div class="flex flex-col items-center justify-center mb-8 transform transition-transform duration-1000 translate-y-10 opacity-0" id="hero-social">
-                <div class="flex -space-x-4 mb-3">
-                    <img class="w-12 h-12 rounded-full border-2 border-dark object-cover shadow-lg" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="">
-                    <img class="w-12 h-12 rounded-full border-2 border-dark object-cover shadow-lg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" alt="">
-                    <div class="w-12 h-12 rounded-full border-2 border-dark bg-gold flex items-center justify-center text-xs font-black text-dark shadow-lg">+2k</div>
+            <div class="flex flex-col items-center justify-center mb-6 transform transition-transform duration-1000 translate-y-10 opacity-0" id="hero-social">
+                <div class="flex -space-x-3 mb-2">
+                    <img class="w-10 h-10 rounded-full border-2 border-dark object-cover" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="User">
+                    <img class="w-10 h-10 rounded-full border-2 border-dark object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" alt="User">
+                    <div class="w-10 h-10 rounded-full border-2 border-dark bg-gold flex items-center justify-center text-[10px] font-black text-dark">+2k</div>
                 </div>
-                <div class="flex items-center gap-1 text-gold mb-1 text-sm">
+                <div class="flex items-center gap-1 text-gold text-xs">
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
-                <p class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.3em]">A Escolha dos Mestres</p>
+                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[0.2em] mt-1">Clientes Satisfeitos</p>
             </div>
 
             <div class="transform transition-transform duration-1000 delay-200 translate-y-10 opacity-0 flex flex-col items-center" id="hero-title">
-                <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé Logo" class="w-64 h-64 md:w-80 md:h-80 object-contain drop-shadow-[0_0_30px_rgba(245,184,0,0.3)] mb-4">
-                <p class="text-silver text-sm md:text-base font-medium tracking-[0.3em] uppercase mb-10 max-w-xl mx-auto px-4 border-y border-white/10 py-3 bg-white/5 backdrop-blur-sm rounded-lg">
-                    Cortes de Elite & Experiência Única
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé" class="w-64 h-64 object-contain drop-shadow-[0_0_25px_rgba(245,184,0,0.2)] mb-2">
+                <p class="text-silver text-xs font-medium tracking-[0.2em] uppercase max-w-xs mx-auto px-4 border-y border-white/10 py-2 bg-white/5 backdrop-blur-sm rounded-lg mt-2">
+                    Cortes de Elite & Experiência
                 </p>
             </div>
-            
-            <div class="transform transition-transform duration-1000 delay-500 translate-y-10 opacity-0" id="hero-btn">
-                <a href="#agendamento" class="hidden md:inline-flex items-center gap-3 bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark font-black text-base px-12 py-5 rounded-full btn-glow uppercase tracking-widest active:scale-95 transition-transform shadow-2xl relative overflow-hidden animate-shine">
-                    Garantir o meu Horário <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
         </div>
     </section>
 
-    <!-- Letreiro Animado 1 (Marquee) -->
-    <div class="bg-gold text-dark py-3 overflow-hidden whitespace-nowrap relative z-20 border-y-2 border-gold-light shadow-[0_0_35px_rgba(245,184,0,0.2)]">
-        <div class="animate-marquee-left inline-block font-sans font-black text-lg md:text-2xl uppercase tracking-widest">
-            <span class="mx-4">AGENDE O SEU HORÁRIO • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
-            <span class="mx-4">AGENDE O SEU HORÁRIO • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
+    <!-- Marquee -->
+    <div class="bg-gold text-dark py-2 overflow-hidden whitespace-nowrap relative z-20 border-y-2 border-gold-light shadow-[0_0_20px_rgba(245,184,0,0.15)]">
+        <div class="animate-marquee-left inline-block font-sans font-black text-sm uppercase tracking-widest">
+            <span class="mx-2">AGENDE ONLINE • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
+            <span class="mx-2">AGENDE ONLINE • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
         </div>
     </div>
 
-    <!-- Serviços (Carrinho de Seleção Múltipla) -->
-    <section id="servicos" class="py-20 md:py-24 bg-dark relative">
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div class="text-center mb-12 md:mb-16 reveal">
-                <span class="text-gold text-xs md:text-sm font-black tracking-[0.3em] uppercase mb-2 block">Menu Completo</span>
-                <h2 class="text-4xl md:text-5xl font-logo text-white mb-4">Os Nossos Serviços</h2>
-                <p class="text-gray-400 text-sm bg-white/5 border border-white/10 inline-block px-4 py-2 rounded-full"><i class="fas fa-hand-pointer text-gold animate-pulse mr-2"></i>Pode selecionar <b>vários serviços</b> ao mesmo tempo.</p>
+    <!-- Serviços Empilhados (App-Like Vertical) -->
+    <section id="servicos" class="py-16 bg-dark relative">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-10 reveal">
+                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">O que precisa?</span>
+                <h2 class="text-3xl font-logo text-white mb-3">Menu VIP</h2>
+                <p class="text-gray-400 text-xs bg-white/5 border border-white/10 inline-block px-3 py-1.5 rounded-full shadow-inner"><i class="fas fa-hand-pointer text-gold animate-pulse mr-1"></i>Toque para adicionar ao ticket.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">
+            <!-- Lista de Categorias Empilhadas -->
+            <div class="flex flex-col gap-6 max-w-xl mx-auto">
                 
-                <!-- Card: Combos VIP -->
-                <div class="glass-card p-6 md:p-8 reveal border-gold/60 shadow-[0_0_30px_rgba(245,184,0,0.2)] bg-[#111111]/90 relative overflow-hidden lg:col-span-2 lg:row-span-2 flex flex-col justify-center">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold-dark via-gold to-gold-light"></div>
-                    <div class="absolute -top-1 right-6 bg-gold text-dark text-[10px] font-black px-4 py-2 rounded-b-lg uppercase tracking-widest shadow-lg z-10">
-                        Mais Pedido
+                <!-- Categoria: Combos VIP -->
+                <div class="glass-card p-5 reveal border-gold/40 relative overflow-hidden bg-[#111111]/90">
+                    <div class="absolute -top-1 -right-1 bg-gold text-dark text-[9px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-widest shadow-lg">Mais Pedidos</div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gold/20 rounded-xl flex items-center justify-center"><i class="fas fa-star text-gold text-lg"></i></div>
+                        <h3 class="text-lg font-black text-white uppercase tracking-wider">Combos VIP</h3>
                     </div>
                     
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-16 h-16 bg-gold/20 rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(245,184,0,0.3)]">
-                            <i class="fas fa-star text-gold text-3xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-bold text-white uppercase tracking-wider leading-none">Combos VIP</h3>
-                            <p class="text-gold text-xs font-bold uppercase tracking-widest mt-1">O pacote completo</p>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba + Sobrancelha', 50)" class="service-item bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 flex justify-between items-center relative overflow-hidden animate-shine group">
-                            <div>
-                                <h4 class="font-black text-gold text-lg md:text-xl mb-1 flex items-center gap-2"><i class="fas fa-check-circle text-gold opacity-0 transition-opacity check-icon text-xl"></i> Cabelo + Barba + Sobranc.</h4>
-                                <p class="text-xs text-gray-400 group-hover:text-white transition-colors">O tratamento premium digno de um chefe.</p>
+                    <div class="space-y-3">
+                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba + Sobrancelha', 50)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center relative overflow-hidden">
+                            <div class="flex items-center gap-3 flex-1">
+                                <div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba + Sobranc.</h4>
+                                    <p class="text-[10px] text-gray-500">Pacote do chefe.</p>
+                                </div>
                             </div>
-                            <span class="font-black text-white text-xl bg-dark px-4 py-2 rounded-xl border border-gold/30 shrink-0 ml-2">R$ 50</span>
+                            <span class="font-black text-gold text-base ml-2">R$ 50</span>
                         </div>
                         
-                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba', 45)" class="service-item bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 flex justify-between items-center group">
-                            <div>
-                                <h4 class="font-black text-gold text-lg md:text-xl mb-1 flex items-center gap-2"><i class="fas fa-check-circle text-gold opacity-0 transition-opacity check-icon text-xl"></i> Cabelo + Barba</h4>
-                                <p class="text-xs text-gray-400 group-hover:text-white transition-colors">Corte alinhado e barba impecável.</p>
+                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba', 45)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center relative overflow-hidden">
+                            <div class="flex items-center gap-3 flex-1">
+                                <div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba</h4>
+                                    <p class="text-[10px] text-gray-500">Clássico alinhado.</p>
+                                </div>
                             </div>
-                            <span class="font-black text-white text-xl bg-dark px-4 py-2 rounded-xl border border-white/10 shrink-0 ml-2">R$ 45</span>
+                            <span class="font-black text-gold text-base ml-2">R$ 45</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card: Cortes -->
-                <div class="glass-card p-6 md:p-8 reveal h-full">
-                    <div class="flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center"><i class="fas fa-scissors text-silver text-xl"></i></div>
-                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Cortes</h3>
+                <!-- Categoria: Cortes -->
+                <div class="glass-card p-5 reveal">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-scissors text-silver text-sm"></i></div>
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider">Cortes Individuais</h3>
                     </div>
-                    <ul class="space-y-3">
-                        <li onclick="toggleServico(this, 'Corte Degradê', 30)" class="service-item flex justify-between items-center p-3 rounded-lg border border-transparent hover:border-gold/30 bg-black/40"><span class="text-gray-200 font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Degradê / Fade</span><span class="font-black text-gold">R$ 30</span></li>
-                        <li onclick="toggleServico(this, 'Corte Social', 25)" class="service-item flex justify-between items-center p-3 rounded-lg border border-transparent hover:border-gold/30 bg-black/40"><span class="text-gray-200 font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Corte Social</span><span class="font-black text-gold">R$ 25</span></li>
-                        <li onclick="toggleServico(this, 'Corte Infantil', 30)" class="service-item flex justify-between items-center p-3 rounded-lg border border-transparent hover:border-gold/30 bg-black/40"><span class="text-gray-200 font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Infantil (Kids)</span><span class="font-black text-gold">R$ 30</span></li>
-                        <li onclick="toggleServico(this, 'Corte na Máquina', 20)" class="service-item flex justify-between items-center p-3 rounded-lg border border-transparent hover:border-gold/30 bg-black/40"><span class="text-gray-200 font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Na Máquina</span><span class="font-black text-gold">R$ 20</span></li>
+                    <ul class="space-y-2">
+                        <li onclick="toggleServico(this, 'Corte Degradê', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Degradê / Fade</span></div><span class="font-black text-gold">R$ 30</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Corte Social', 25)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Corte Social</span></div><span class="font-black text-gold">R$ 25</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Corte Infantil', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Infantil (Kids)</span></div><span class="font-black text-gold">R$ 30</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Corte na Máquina', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Na Máquina</span></div><span class="font-black text-gold">R$ 20</span>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- Card: Estética -->
-                <div class="glass-card p-6 md:p-8 reveal h-full">
-                    <div class="flex items-center gap-4 mb-6 border-b border-white/10 pb-4">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center"><i class="fas fa-fire text-silver text-xl"></i></div>
-                        <h3 class="text-xl font-bold text-white uppercase tracking-wider">Estética</h3>
+                <!-- Categoria: Estética & Cor -->
+                <div class="glass-card p-5 reveal">
+                    <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-fire text-silver text-sm"></i></div>
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider">Estética & Cor</h3>
                     </div>
-                    <ul class="space-y-3">
-                        <li onclick="toggleServico(this, 'Barba Simples', 20)" class="service-item flex justify-between items-center p-3 rounded-lg border border-transparent hover:border-gold/30 bg-black/40"><span class="text-gray-200 font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Barba Simples</span><span class="font-black text-gold">R$ 20</span></li>
-                        <li onclick="toggleServico(this, 'Sobrancelha', 10)" class="service-item flex justify-between items-center p-3 rounded-lg border border-transparent hover:border-gold/30 bg-black/40"><span class="text-gray-200 font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Sobrancelha</span><span class="font-black text-gold">R$ 10</span></li>
-                        <li onclick="toggleServico(this, 'Corte + Pintura', 60)" class="service-item flex justify-between items-center p-3 rounded-lg border border-gold/20 bg-gold/10 mt-2"><span class="text-white font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Corte + Pintura</span><span class="font-black text-gold">R$ 60</span></li>
-                        <li onclick="toggleServico(this, 'Luzes Nevou', 120)" class="service-item flex justify-between items-center p-3 rounded-lg border border-gold/20 bg-gold/10"><span class="text-white font-bold text-sm flex items-center gap-2"><i class="fas fa-check text-gold opacity-0 transition-opacity check-icon"></i> Luzes Nevou</span><span class="font-black text-gold">R$ 120</span></li>
+                    <ul class="space-y-2">
+                        <li onclick="toggleServico(this, 'Barba Simples', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Barba Simples</span></div><span class="font-black text-gold">R$ 20</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Sobrancelha', 10)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Sobrancelha</span></div><span class="font-black text-gold">R$ 10</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Corte + Pintura', 60)" class="service-item flex justify-between items-center p-3 rounded-xl bg-gold/10 border border-gold/20 mt-2">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Corte + Pintura</span></div><span class="font-black text-gold">R$ 60</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Luzes Nevou', 120)" class="service-item flex justify-between items-center p-3 rounded-xl bg-gold/10 border border-gold/20">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Luzes Nevou</span></div><span class="font-black text-gold">R$ 120</span>
+                        </li>
                     </ul>
                 </div>
                 
-                <!-- Card: Pai & Filho -->
-                <div class="glass-card p-6 reveal relative overflow-hidden lg:col-span-2 border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="absolute inset-0 bg-gradient-to-r from-dark to-dark-gray z-0"></div>
-                    <div class="relative z-10 text-center md:text-left w-full md:w-auto">
-                        <h3 class="text-xl font-bold text-white uppercase tracking-wider mb-1 flex items-center justify-center md:justify-start gap-2"><i class="fas fa-users text-gold"></i> Promos Pai & Filho</h3>
-                        <p class="text-[10px] text-gray-500 uppercase tracking-widest">* Válido Segunda e Terça</p>
+                <!-- Categoria: Pai & Filho -->
+                <div class="glass-card p-5 reveal relative overflow-hidden flex flex-col gap-3 border-white/10 bg-gradient-to-br from-[#111] to-[#050505]">
+                    <div class="relative z-10 flex items-center justify-between mb-1">
+                        <h3 class="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-users text-gold"></i> Pai & Filho</h3>
+                        <p class="text-[8px] text-gold uppercase bg-gold/10 px-2 py-1 rounded-full border border-gold/20">Seg & Ter</p>
                     </div>
-                    <div class="relative z-10 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                        <div onclick="toggleServico(this, 'Pai e Filho (Degradê)', 55)" class="service-item px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-center relative flex-1">
-                            <i class="fas fa-check-circle text-gold opacity-0 transition-opacity absolute top-2 right-2 check-icon"></i>
-                            <p class="text-white font-bold text-xs uppercase mb-1">Dupla Degradê</p>
-                            <p class="font-black text-gold text-lg">R$ 55</p>
-                        </div>
-                        <div onclick="toggleServico(this, 'Pai e Filho (Social)', 45)" class="service-item px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-center relative flex-1">
-                            <i class="fas fa-check-circle text-gold opacity-0 transition-opacity absolute top-2 right-2 check-icon"></i>
-                            <p class="text-white font-bold text-xs uppercase mb-1">Dupla Social</p>
-                            <p class="font-black text-gold text-lg">R$ 45</p>
-                        </div>
+                    <div onclick="toggleServico(this, 'Pai e Filho (Degradê)', 55)" class="service-item px-4 py-3 rounded-xl bg-black/50 border border-white/10 flex justify-between items-center">
+                        <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Dupla Degradê</span></div>
+                        <span class="font-black text-gold text-base">R$ 55</span>
+                    </div>
+                    <div onclick="toggleServico(this, 'Pai e Filho (Social)', 45)" class="service-item px-4 py-3 rounded-xl bg-black/50 border border-white/10 flex justify-between items-center">
+                        <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Dupla Social</span></div>
+                        <span class="font-black text-gold text-base">R$ 45</span>
                     </div>
                 </div>
 
@@ -380,235 +372,171 @@
         </div>
     </section>
 
-    <!-- Letreiro Animado 2 -->
-    <div class="bg-[#111] text-white py-3 overflow-hidden whitespace-nowrap relative z-20 border-y border-white/5">
-        <div class="animate-marquee-right inline-block font-sans font-bold text-sm md:text-base uppercase tracking-[0.4em] text-gray-400">
-            <span class="mx-4">CONHEÇA OS NOSSOS MESTRES ✂️ ESPECIALISTAS EM VISAGISMO ✂️ CORTES DE ALTA PRECISÃO ✂️ </span>
-            <span class="mx-4">CONHEÇA OS NOSSOS MESTRES ✂️ ESPECIALISTAS EM VISAGISMO ✂️ CORTES DE ALTA PRECISÃO ✂️ </span>
-        </div>
-    </div>
-
-    <!-- SECÇÃO: OS MESTRES -->
-    <section id="equipa" class="py-24 bg-[#0a0a0a] relative border-b border-white/5">
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="text-gold text-xs md:text-sm font-black tracking-[0.3em] uppercase mb-2 block">A Elite</span>
-                <h2 class="text-4xl md:text-6xl font-logo text-white mb-4">A Nossa Equipa</h2>
+    <!-- SECÇÃO: OS MESTRES (Otimizado Mobile) -->
+    <section id="equipa" class="py-16 bg-[#0a0a0a] relative border-y border-white/5">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-10 reveal">
+                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">A Elite</span>
+                <h2 class="text-3xl font-logo text-white mb-2">A Nossa Equipa</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+            <div class="flex flex-col gap-6 max-w-sm mx-auto">
                 <!-- Zé -->
-                <div class="relative rounded-[2rem] overflow-hidden group reveal-left border border-white/10 shadow-2xl h-[450px] md:h-[550px] bg-dark">
-                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=800&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                    <div class="absolute bottom-24 -left-4 font-logo text-[120px] md:text-[150px] text-white/5 leading-none select-none pointer-events-none">ZÉ</div>
+                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[380px] bg-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-16 -left-4 font-logo text-[100px] text-white/10 leading-none pointer-events-none">ZÉ</div>
 
-                    <div class="absolute inset-0 p-8 flex flex-col justify-end z-10">
-                        <div class="mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                            <span class="bg-gold text-dark text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Master Barber</span>
-                            <h3 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-1">Mestre Zé</h3>
-                            <p class="text-gray-300 text-sm font-medium">Fundador & Especialista em Cortes Clássicos.</p>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-end z-10 pb-6">
+                        <div class="mb-3">
+                            <span class="bg-gold text-dark text-[9px] font-black px-2 py-1 rounded-sm uppercase tracking-widest mb-1 inline-block">Master Barber</span>
+                            <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Zé</h3>
+                            <p class="text-gray-300 text-[11px] font-medium">Fundador & Clássicos.</p>
                         </div>
-                        <button onclick="agendarComBarbeiro('Zé')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-4 rounded-xl uppercase tracking-widest hover:bg-gold hover:text-dark hover:border-gold transition-all duration-300 opacity-90 group-hover:opacity-100 flex items-center justify-center gap-2">
-                            <i class="fas fa-cut"></i> Agendar com Zé
+                        <button onclick="agendarComBarbeiro('Zé')" class="w-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-calendar-check"></i> Agendar com Zé
                         </button>
                     </div>
                 </div>
 
                 <!-- Jonas -->
-                <div class="relative rounded-[2rem] overflow-hidden group reveal-right border border-white/10 shadow-2xl h-[450px] md:h-[550px] bg-dark">
-                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=800&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                    <div class="absolute bottom-24 -right-4 font-logo text-[100px] md:text-[130px] text-white/5 leading-none select-none pointer-events-none">JONAS</div>
+                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[380px] bg-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-16 -right-4 font-logo text-[80px] text-white/10 leading-none pointer-events-none">JONAS</div>
 
-                    <div class="absolute inset-0 p-8 flex flex-col justify-end z-10">
-                        <div class="mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                            <span class="bg-silver text-dark text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block shadow-lg">Especialista Fade</span>
-                            <h3 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-1">Jonas</h3>
-                            <p class="text-gray-300 text-sm font-medium">Mestre do Degradê e técnicas modernas.</p>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-end z-10 pb-6">
+                        <div class="mb-3">
+                            <span class="bg-silver text-dark text-[9px] font-black px-2 py-1 rounded-sm uppercase tracking-widest mb-1 inline-block">Especialista Fade</span>
+                            <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Jonas</h3>
+                            <p class="text-gray-300 text-[11px] font-medium">Mestre do Degradê moderno.</p>
                         </div>
-                        <button onclick="agendarComBarbeiro('Jonas')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-4 rounded-xl uppercase tracking-widest hover:bg-gold hover:text-dark hover:border-gold transition-all duration-300 opacity-90 group-hover:opacity-100 flex items-center justify-center gap-2">
-                            <i class="fas fa-cut"></i> Agendar com Jonas
+                        <button onclick="agendarComBarbeiro('Jonas')" class="w-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-calendar-check"></i> Agendar com Jonas
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- SECÇÃO LOCALIZAÇÃO (NOVO E PREMIUM) -->
-    <section id="localizacao" class="py-24 bg-dark relative border-b border-white/5">
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="text-gold text-xs md:text-sm font-black tracking-[0.3em] uppercase mb-2 block">Onde a Mágica Acontece</span>
-                <h2 class="text-4xl md:text-5xl font-logo text-white mb-4">O Nosso Espaço</h2>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto glass-card p-6 md:p-8 rounded-[2rem] border-gold/20 reveal">
-                <!-- Informações e Botão -->
-                <div class="flex flex-col justify-center space-y-8">
-                    <div>
-                        <h3 class="text-2xl font-bold text-white mb-2 flex items-center gap-3"><i class="fas fa-map-marker-alt text-gold text-3xl"></i> Rua Domingo De Mendeiros</h3>
-                        <p class="text-gray-400">Ambiente totalmente climatizado, com Wi-Fi, cerveja gelada e a melhor resenha da cidade enquanto espera pelo seu corte.</p>
-                    </div>
-                    
-                    <div class="space-y-4 border-t border-white/10 pt-6">
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="text-gray-400 font-bold uppercase tracking-wider">Seg a Sáb</span>
-                            <span class="text-white font-black">09:00 - 20:00</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="text-gray-400 font-bold uppercase tracking-wider">Domingo</span>
-                            <span class="text-gold font-black uppercase">Fechado</span>
-                        </div>
-                    </div>
-
-                    <a href="https://www.google.com/maps/search/Rua+Domingo+De+Mendeiros/@-6.7661,-37.7978,823m/data=!3m1!1e3?hl=pt-BR" target="_blank" class="bg-white/5 border border-white/20 hover:border-gold hover:bg-gold/10 text-white font-bold py-4 rounded-xl uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group">
-                        <i class="fas fa-location-arrow text-gold group-hover:animate-bounce"></i> Abrir Rota no Google Maps
-                    </a>
+    <!-- SECÇÃO LOCALIZAÇÃO (Mobile Optimizado) -->
+    <section id="localizacao" class="py-16 bg-dark relative border-b border-white/5">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="glass-card p-5 rounded-[2rem] border-gold/20 reveal flex flex-col space-y-6">
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2"><i class="fas fa-map-marker-alt text-gold"></i> Rua Domingo De Mendeiros</h3>
+                    <p class="text-gray-400 text-xs px-2">Climatizado, Wi-Fi e cerveja gelada.</p>
                 </div>
-
-                <!-- Mapa Embutido (Estilo Escuro) -->
-                <div class="w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden map-container border border-white/10 relative">
-                    <!-- Mapa fictício para exemplo visual (substituir o src pelo seu embed real se tiver) -->
+                
+                <div class="w-full h-[200px] rounded-2xl overflow-hidden map-container border border-white/10">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15873.914282363532!2d-37.80806461975098!3d-6.76342819999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDUnNDguMyJTIDM3wrA0OCcyOS4wIlc!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    <div class="absolute inset-0 pointer-events-none rounded-2xl ring-1 ring-inset ring-white/10"></div>
+                </div>
+
+                <a href="https://www.google.com/maps/search/Rua+Domingo+De+Mendeiros/@-6.7661,-37.7978,823m/data=!3m1!1e3?hl=pt-BR" target="_blank" class="bg-white/5 border border-white/20 active:bg-gold/20 text-white font-bold py-4 rounded-xl uppercase text-xs tracking-widest transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-location-arrow text-gold"></i> Rota GPS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO AVALIAÇÕES -->
+    <section id="depoimentos" class="py-16 bg-dark relative border-b border-white/5 overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-10 reveal">
+                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Prova Social</span>
+                <h2 class="text-3xl font-logo text-white">Voz dos Clientes</h2>
+            </div>
+
+            <div class="flex flex-col gap-5 max-w-sm mx-auto">
+                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/80">
+                    <div class="flex justify-between items-start mb-4">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold">
+                        <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                    <h4 class="text-white font-bold text-sm">Marcos Silva</h4>
+                    <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é rápido e prático."</p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-3xl reveal border-gold/30 shadow-[0_0_20px_rgba(245,184,0,0.1)] bg-[#1a1a1a]/90">
+                    <div class="flex justify-between items-start mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold">
+                        <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                    <h4 class="text-white font-bold text-sm">Roberto Alves</h4>
+                    <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"Trago o meu filho na terça-feira para aproveitar a promoção. O Zé tem paciência incrível."</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECÇÃO AVALIAÇÕES / DEPOIMENTOS -->
-    <section id="depoimentos" class="py-24 bg-dark relative border-b border-white/5 overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-gold/10 via-dark to-dark z-0"></div>
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="text-gold text-xs md:text-sm font-black tracking-[0.3em] uppercase mb-2 block">Prova Social</span>
-                <h2 class="text-4xl md:text-5xl font-logo text-white mb-4">A Voz dos Clientes</h2>
-                <p class="text-gray-400 text-sm">Veja por que somos a escolha número um da região.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                <!-- Cliente 1 -->
-                <div class="glass-card p-8 rounded-3xl reveal-left">
-                    <div class="flex justify-between items-start mb-6">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
-                        <div class="flex text-gold text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
-                    <h4 class="text-white font-bold text-lg mb-1">Marcos Silva</h4>
-                    <span class="text-gold text-[10px] uppercase tracking-widest font-black inline-block mb-4">Cliente Fiel</span>
-                    <p class="text-gray-300 italic text-sm leading-relaxed">"Atendimento impecável! O Jonas manda muito bem no degradê. O sistema de agendar aqui pelo site é rápido e prático. Recomendo 100%!"</p>
-                </div>
+    <!-- Formulário de Agendamento (App Checkout Style) -->
+    <section id="agendamento" class="py-16 bg-[#050505] relative pb-32">
+        <div class="container mx-auto px-4 relative z-10">
+            <div id="form-container" class="max-w-md mx-auto glass-card border border-gold/30 rounded-[2rem] p-5 shadow-[0_0_40px_rgba(245,184,0,0.1)] reveal transition-all duration-300">
                 
-                <!-- Cliente 2 -->
-                <div class="glass-card p-8 rounded-3xl reveal transform md:-translate-y-6 border-gold/50 shadow-[0_0_30px_rgba(245,184,0,0.15)] bg-[#111]/90">
-                    <div class="flex justify-between items-start mb-6">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
-                        <div class="flex text-gold text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
-                    <h4 class="text-white font-bold text-lg mb-1">Roberto Alves</h4>
-                    <span class="text-silver text-[10px] uppercase tracking-widest font-black inline-block mb-4">Pai & Filho</span>
-                    <p class="text-gray-300 italic text-sm leading-relaxed">"Sempre trago o meu filho na terça-feira para aproveitar a promoção. O Zé tem uma paciência incrível com crianças. A melhor barbearia!"</p>
-                </div>
-                
-                <!-- Cliente 3 -->
-                <div class="glass-card p-8 rounded-3xl reveal-right">
-                    <div class="flex justify-between items-start mb-6">
-                        <img src="https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
-                        <div class="flex text-gold text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
-                    <h4 class="text-white font-bold text-lg mb-1">Felipe Costa</h4>
-                    <span class="text-gold text-[10px] uppercase tracking-widest font-black inline-block mb-4">Combo VIP</span>
-                    <p class="text-gray-300 italic text-sm leading-relaxed">"A barba lenhador ficou perfeita, toalha quente top e o atendimento nota 10. Agendar pelo telemóvel e não apanhar fila não tem preço."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Formulário de Agendamento Dinâmico (Com Resumo de Serviços) -->
-    <section id="agendamento" class="py-20 md:py-32 bg-[#050505] relative pb-32 md:pb-24">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/5 via-dark to-dark z-0"></div>
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div id="form-container" class="max-w-3xl mx-auto glass-card border border-gold/40 rounded-[2rem] p-6 md:p-12 shadow-[0_0_50px_rgba(245,184,0,0.15)] reveal transition-all duration-500">
-                
-                <div class="text-center mb-10">
-                    <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner border border-gold/30">
-                        <i class="fas fa-calendar-check text-2xl text-gold"></i>
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-logo text-white mb-3">Finalizar Reserva</h2>
-                    <p class="text-gray-400 text-sm md:text-base font-medium">Os seus dados gerarão um bilhete VIP para o WhatsApp.</p>
+                <div class="text-center mb-8 mt-2">
+                    <h2 class="text-2xl font-logo text-white mb-1">Seu Ticket VIP</h2>
+                    <p class="text-gray-400 text-[11px] uppercase tracking-widest">Confirmação via WhatsApp</p>
                 </div>
 
-                <form id="booking-form" class="space-y-8 relative z-20">
+                <form id="booking-form" class="space-y-6">
                     
-                    <!-- Escolha do Profissional -->
-                    <div class="space-y-3">
-                        <label class="text-[11px] md:text-xs text-gold font-black uppercase tracking-[0.2em] ml-2">1. Quem fará o seu corte?</label>
-                        <div class="grid grid-cols-3 gap-2 md:gap-4 bg-black/50 p-2 rounded-2xl border border-white/10 relative">
-                            <label class="cursor-pointer relative z-10">
+                    <!-- 1. Profissional -->
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1">1. O Profissional</label>
+                        <div class="grid grid-cols-3 gap-2 bg-black/60 p-1.5 rounded-xl border border-white/5">
+                            <label class="cursor-pointer">
                                 <input type="radio" name="barber" value="Qualquer Barbeiro" class="peer sr-only" checked id="radio-qualquer">
-                                <div class="text-center py-4 rounded-xl text-gray-400 peer-checked:bg-gold peer-checked:text-dark transition-all text-xs md:text-sm font-black uppercase tracking-wider shadow-sm">Qualquer</div>
+                                <div class="text-center py-3 rounded-lg text-gray-500 peer-checked:bg-gold peer-checked:text-dark transition-all text-[11px] font-black uppercase">Auto</div>
                             </label>
-                            <label class="cursor-pointer relative z-10">
+                            <label class="cursor-pointer">
                                 <input type="radio" name="barber" value="Zé" class="peer sr-only" id="radio-ze">
-                                <div class="text-center py-4 rounded-xl text-gray-400 peer-checked:bg-gold peer-checked:text-dark transition-all text-xs md:text-sm font-black uppercase tracking-wider shadow-sm">ZÉ</div>
+                                <div class="text-center py-3 rounded-lg text-gray-500 peer-checked:bg-gold peer-checked:text-dark transition-all text-[11px] font-black uppercase">ZÉ</div>
                             </label>
-                            <label class="cursor-pointer relative z-10">
+                            <label class="cursor-pointer">
                                 <input type="radio" name="barber" value="Jonas" class="peer sr-only" id="radio-jonas">
-                                <div class="text-center py-4 rounded-xl text-gray-400 peer-checked:bg-gold peer-checked:text-dark transition-all text-xs md:text-sm font-black uppercase tracking-wider shadow-sm">JONAS</div>
+                                <div class="text-center py-3 rounded-lg text-gray-500 peer-checked:bg-gold peer-checked:text-dark transition-all text-[11px] font-black uppercase">JONAS</div>
                             </label>
                         </div>
                     </div>
 
-                    <!-- Caixa Resumo dos Serviços Selecionados -->
-                    <div class="space-y-3">
-                        <label class="text-[11px] md:text-xs text-gold font-black uppercase tracking-[0.2em] ml-2 flex justify-between items-center">
-                            <span>2. Serviços Selecionados</span>
-                            <a href="#servicos" class="text-gray-400 hover:text-white underline lowercase text-[10px] tracking-normal"><i class="fas fa-plus"></i> Adicionar mais</a>
+                    <!-- 2. Serviços (Carrinho) -->
+                    <div class="space-y-2">
+                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1 flex justify-between">
+                            <span>2. O Serviço</span>
+                            <a href="#servicos" class="text-gray-500 underline lowercase">Adicionar+</a>
                         </label>
-                        
-                        <div class="w-full bg-[#0a0a0a] border border-white/20 rounded-2xl p-5 text-white transition-all shadow-inner relative min-h-[120px] flex flex-col justify-between">
-                            <div id="resumo-servicos" class="mb-4 space-y-2">
-                                <p class="text-gray-500 italic text-sm text-center py-4"><i class="fas fa-hand-pointer text-gold mr-2 animate-pulse"></i> Toque nos serviços no menu acima para os adicionar ao seu ticket.</p>
+                        <div class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white shadow-inner min-h-[100px] flex flex-col justify-between">
+                            <div id="resumo-servicos" class="mb-3 space-y-2">
+                                <p class="text-gray-600 italic text-[11px] text-center py-2">Toque nos serviços do Menu acima para adicioná-los.</p>
                             </div>
-                            
-                            <!-- Totalizador -->
-                            <div class="border-t border-white/10 pt-4 flex justify-between items-center mt-auto">
-                                <span class="text-gray-400 text-xs uppercase tracking-widest font-bold">Total Estimado</span>
-                                <span id="resumo-total" class="font-black text-gold text-2xl drop-shadow-md">R$ 0</span>
+                            <div class="border-t border-white/5 pt-3 flex justify-between items-center mt-auto">
+                                <span class="text-gray-500 text-[10px] uppercase font-bold">Total</span>
+                                <span id="resumo-total" class="font-black text-gold text-xl">R$ 0</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Nome -->
-                        <div class="space-y-2 md:col-span-2">
-                            <label class="text-[11px] md:text-xs text-gold font-black uppercase tracking-[0.2em] ml-2">3. O seu Nome</label>
-                            <input type="text" id="client-name" required placeholder="Ex: João Santos" 
-                                class="w-full bg-[#0a0a0a] border border-white/20 rounded-2xl px-5 py-5 text-white focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/50 transition-all font-medium text-base shadow-inner">
-                        </div>
-
-                        <!-- Data e Hora -->
-                        <div class="grid grid-cols-2 gap-4 md:col-span-2">
-                            <div class="space-y-2">
-                                <label class="text-[11px] md:text-xs text-gold font-black uppercase tracking-[0.2em] ml-2">4. Data</label>
-                                <input type="date" id="booking-date" required
-                                    class="w-full bg-[#0a0a0a] border border-white/20 rounded-2xl px-4 py-5 text-white focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/50 transition-all text-base font-bold shadow-inner">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[11px] md:text-xs text-gold font-black uppercase tracking-[0.2em] ml-2">5. Hora</label>
-                                <input type="time" id="booking-time" required min="09:00" max="20:00"
-                                    class="w-full bg-[#0a0a0a] border border-white/20 rounded-2xl px-4 py-5 text-white focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/50 transition-all text-base font-bold shadow-inner">
-                            </div>
+                    <!-- 3. Dados (Inputs Nativos Mobile) -->
+                    <div class="space-y-4">
+                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1 block mb-[-8px]">3. Os seus Dados</label>
+                        <input type="text" id="client-name" required placeholder="Seu Nome Completo" 
+                            class="w-full bg-black/80 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-gold text-sm shadow-inner placeholder-gray-600">
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="date" id="booking-date" required
+                                class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner uppercase">
+                            <input type="time" id="booking-time" required min="09:00" max="20:00"
+                                class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner">
                         </div>
                     </div>
 
                     <!-- Botão Final WhatsApp -->
-                    <div class="pt-6">
-                        <button type="button" onclick="gerarTicketZap()" class="w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-black py-6 rounded-2xl flex justify-center items-center gap-3 transition-transform shadow-[0_15px_30px_rgba(37,211,102,0.3)] cursor-pointer active:scale-[0.98] border border-[#25D366]/50 relative overflow-hidden animate-shine">
-                            <i class="fab fa-whatsapp text-3xl"></i>
-                            <span class="text-lg md:text-xl uppercase tracking-widest text-shadow-sm">Confirmar no WhatsApp</span>
+                    <div class="pt-4">
+                        <button type="button" onclick="gerarTicketZap()" class="w-full bg-[#25D366] text-white font-black py-5 rounded-xl flex justify-center items-center gap-2 shadow-[0_10px_25px_rgba(37,211,102,0.3)] active:scale-95 transition-transform">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                            <span class="text-sm uppercase tracking-widest">Enviar Pedido Vip</span>
                         </button>
                     </div>
                 </form>
@@ -616,67 +544,29 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-black pt-16 pb-8 border-t border-white/10 text-sm pb-24 md:pb-8 relative z-20">
-        <div class="container mx-auto px-6 text-center">
-            <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo Barbearia do Zé" class="w-24 h-24 object-contain mx-auto mb-6 opacity-90 drop-shadow-[0_0_10px_rgba(245,184,0,0.2)]">
-            <p class="text-gray-400 mb-6 max-w-md mx-auto font-medium">A arte da barbearia levada a sério. Rua Domingo De Mendeiros.</p>
-            <div class="flex justify-center gap-6 mb-10">
-                <a href="#" class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gold hover:bg-gold hover:text-dark transition-all text-xl"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gold hover:bg-gold hover:text-dark transition-all text-xl"><i class="fab fa-facebook-f"></i></a>
+    <!-- Footer Simples App-Like -->
+    <footer class="bg-[#030303] pt-10 pb-28 border-t border-white/5 relative z-20">
+        <div class="container mx-auto px-6 text-center flex flex-col items-center">
+            <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-16 h-16 object-contain mb-4 opacity-50 grayscale">
+            <div class="flex justify-center gap-5 mb-6">
+                <a href="#" class="text-gray-600 text-lg"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-600 text-lg"><i class="fab fa-facebook-f"></i></a>
             </div>
-            <div class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">&copy; 2026 Barbearia do Zé. Premium UI.</div>
+            <div class="text-gray-700 text-[9px] uppercase tracking-widest font-bold">&copy; 2026 Barbearia do Zé.</div>
         </div>
     </footer>
 
     <script>
-        // CONFIGURAÇÃO WHATSAPP
-        const numeroWhatsApp = "5511999999999"; 
+        const numeroWhatsApp = "558396340618"; 
 
-        // Animação do Cursor (Desktop)
-        window.addEventListener("mousemove", function (e) {
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-            if (cursorDot && cursorOutline) {
-                cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
-                cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 300, fill: "forwards" });
-            }
-        });
-
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const progress = document.getElementById('scroll-progress');
-            if (progress) progress.style.width = (document.documentElement.scrollTop / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100 + '%';
-        });
-
-        // Preloader & Iniciador
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(() => { document.getElementById('loader-progress').style.width = '100%'; }, 200);
-            setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                    document.body.classList.remove('overflow-hidden');
-                    document.getElementById('hero-social').classList.remove('translate-y-10', 'opacity-0');
-                    document.getElementById('hero-title').classList.remove('translate-y-10', 'opacity-0');
-                    document.getElementById('hero-btn').classList.remove('translate-y-10', 'opacity-0');
-                    
-                    // Iniciar Notificações FOMO
-                    iniciarFOMO();
-                }, 1000); 
-            }, 2000);
-            
-            document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
-        });
-
-        // Menu Mobile Toggle
+        // Menu Mobile Toggle Simples
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         
         function toggleMenu() {
             if(mobileMenu.classList.contains('pointer-events-none')) {
                 mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
-                menuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                menuBtn.innerHTML = '<i class="fas fa-times text-gold"></i>';
             } else {
                 mobileMenu.classList.add('opacity-0');
                 setTimeout(() => mobileMenu.classList.add('pointer-events-none'), 300);
@@ -686,55 +576,62 @@
         menuBtn.addEventListener('click', toggleMenu);
         document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', toggleMenu));
 
-        // Scroll Reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+        // Inicialização
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; document.body.classList.remove('overflow-hidden'); }, 800); 
+                
+                // Animar Hero
+                document.getElementById('hero-social').classList.remove('translate-y-10', 'opacity-0');
+                document.getElementById('hero-title').classList.remove('translate-y-10', 'opacity-0');
+                iniciarFOMO();
+            }, 1000);
+            document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
+            
+            // Scroll Reveal Simples
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
 
-        // SISTEMA DE MESCLAR OPÇÕES (Múltiplos Serviços)
+        // Carrinho de Serviços
         let servicosSelecionados = [];
         let totalEstimado = 0;
 
         function mostrarToast(mensagem) {
             const toast = document.getElementById('toast-msg');
             document.getElementById('toast-text').innerText = mensagem;
-            toast.classList.remove('hidden');
-            toast.classList.remove('toast-anim');
-            void toast.offsetWidth; // Trigger reflow
+            toast.classList.remove('hidden', 'toast-anim');
+            void toast.offsetWidth; 
             toast.classList.add('toast-anim');
-            
-            setTimeout(() => { toast.classList.add('hidden'); }, 2500);
+            setTimeout(() => { toast.classList.add('hidden'); }, 2000);
         }
 
         window.toggleServico = function(elemento, nomeServico, preco) {
-            // Vibração Tátil (Android)
-            if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+            if (navigator.vibrate) navigator.vibrate([30, 20, 30]); // Haptic Feedback rápido
 
             const index = servicosSelecionados.findIndex(s => s.nome === nomeServico);
             const icone = elemento.querySelector('.check-icon');
             
-            // Efeito visual na caixa (Service Pop)
             elemento.classList.remove('service-pop');
             void elemento.offsetWidth;
             elemento.classList.add('service-pop');
 
             if(index > -1) {
-                // Remover
                 servicosSelecionados.splice(index, 1);
                 totalEstimado -= preco;
                 elemento.classList.remove('selected-service');
                 if(icone) icone.style.opacity = '0';
-                mostrarToast("❌ Removido do Ticket!");
+                mostrarToast("Removido!");
             } else {
-                // Adicionar
                 servicosSelecionados.push({nome: nomeServico, preco: preco});
                 totalEstimado += preco;
                 elemento.classList.add('selected-service');
                 if(icone) icone.style.opacity = '1';
-                mostrarToast("✅ Adicionado ao Ticket!");
+                mostrarToast("Adicionado!");
             }
-            
             atualizarCaixaResumo();
         };
 
@@ -743,65 +640,57 @@
             const totalVisor = document.getElementById('resumo-total');
             
             if(servicosSelecionados.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 italic text-sm text-center py-4"><i class="fas fa-hand-pointer text-gold mr-2 animate-pulse"></i> Toque nos serviços no menu acima para os adicionar ao seu ticket.</p>';
+                container.innerHTML = '<p class="text-gray-600 italic text-[11px] text-center py-2">Toque nos serviços do Menu acima para adicioná-los.</p>';
                 totalVisor.innerText = 'R$ 0';
             } else {
                 container.innerHTML = servicosSelecionados.map(s => `
-                    <div class="flex justify-between items-center border-b border-white/5 pb-2 mb-2 last:border-0 last:mb-0 last:pb-0">
-                        <span class="text-white font-medium text-sm"><i class="fas fa-check text-gold text-[10px] mr-2"></i>${s.nome}</span>
-                        <span class="text-gold font-bold">R$ ${s.preco}</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-white text-xs"><i class="fas fa-check text-gold text-[8px] mr-1"></i>${s.nome}</span>
+                        <span class="text-gold font-bold text-xs">R$ ${s.preco}</span>
                     </div>
                 `).join('');
                 totalVisor.innerText = `R$ ${totalEstimado}`;
             }
         }
 
-        // FUNÇÃO: Selecionar Barbeiro e Rolar
         window.agendarComBarbeiro = function(barbeiroNome) {
             if(barbeiroNome === 'Zé') document.getElementById('radio-ze').checked = true;
             if(barbeiroNome === 'Jonas') document.getElementById('radio-jonas').checked = true;
             
-            mostrarToast("Mestre Selecionado!");
-            if (navigator.vibrate) navigator.vibrate([60]);
+            mostrarToast(barbeiroNome + " Escolhido!");
+            if (navigator.vibrate) navigator.vibrate([40]);
             
             setTimeout(() => {
                 document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
-                document.getElementById('form-container').classList.add('ring-4', 'ring-gold', 'scale-[1.02]');
-                setTimeout(() => document.getElementById('form-container').classList.remove('ring-4', 'ring-gold', 'scale-[1.02]'), 1000);
-            }, 500);
+                document.getElementById('form-container').classList.add('ring-2', 'ring-gold', 'bg-gold/5');
+                setTimeout(() => document.getElementById('form-container').classList.remove('ring-2', 'ring-gold', 'bg-gold/5'), 800);
+            }, 300);
         }
 
-        // SISTEMA FOMO (Notificações Falsas)
+        // FOMO (Topo Push Notification)
         function iniciarFOMO() {
             const fomoEl = document.getElementById('fomo-notification');
-            const nomes = ["Mateus", "Lucas", "João", "Pedro", "Thiago", "Felipe", "Gabriel", "Rafael", "Carlos"];
-            const servicos = ["Combo VIP", "Corte Degradê", "Pai & Filho", "Luzes Nevou", "Barba Alinhada"];
+            const nomes = ["Mateus", "Lucas", "João", "Pedro", "Felipe", "Gabriel", "Carlos"];
+            const servicos = ["Combo VIP", "Corte Degradê", "Luzes Nevou"];
             
             function dispararNotificacao() {
-                const randomNome = nomes[Math.floor(Math.random() * nomes.length)];
-                const randomServico = servicos[Math.floor(Math.random() * servicos.length)];
-                const randomTempo = Math.floor(Math.random() * 5) + 1; // 1 a 5 min
+                document.getElementById('fomo-name').innerText = nomes[Math.floor(Math.random() * nomes.length)];
+                document.getElementById('fomo-service').innerText = servicos[Math.floor(Math.random() * servicos.length)];
                 
-                document.getElementById('fomo-name').innerText = randomNome;
-                document.getElementById('fomo-service').innerText = randomServico;
-                document.getElementById('fomo-time').innerText = randomTempo;
+                fomoEl.classList.remove('pointer-events-none');
+                fomoEl.classList.add('fomo-anim');
                 
-                fomoEl.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => { 
+                    fomoEl.classList.remove('fomo-anim'); 
+                    fomoEl.classList.add('pointer-events-none');
+                }, 4000);
                 
-                setTimeout(() => {
-                    fomoEl.classList.add('translate-y-20', 'opacity-0');
-                }, 4000); // Fica 4 segundos na tela
-                
-                // Agenda a próxima entre 15 a 30 segundos
-                const nextTime = Math.floor(Math.random() * 15000) + 15000;
-                setTimeout(dispararNotificacao, nextTime);
+                setTimeout(dispararNotificacao, Math.floor(Math.random() * 15000) + 20000);
             }
-            
-            // Dispara a primeira notificação após 8 segundos
-            setTimeout(dispararNotificacao, 8000);
+            setTimeout(dispararNotificacao, 5000);
         }
 
-        // FUNÇÃO: Gerar Ticket WhatsApp Final
+        // WhatsApp Ticket
         window.gerarTicketZap = function() {
             const nome = document.getElementById('client-name').value.trim();
             const data = document.getElementById('booking-date').value;
@@ -809,30 +698,20 @@
             const barbeiro = document.querySelector('input[name="barber"]:checked').value;
 
             if(servicosSelecionados.length === 0) {
-                alert("⚠️ Selecione pelo menos um serviço no Menu acima para podermos gerar o seu ticket.");
+                alert("⚠️ Selecione um serviço no Menu para gerar o seu ticket.");
                 document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
                 return;
             }
-
             if(!nome || !data || !hora) {
-                alert("⚠️ Por favor, preencha o seu nome, data e hora do seu Bilhete VIP.");
+                alert("⚠️ Preencha nome, data e hora.");
                 return;
             }
             
             const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-PT');
-            
             let listaServicos = "";
-            servicosSelecionados.forEach(s => {
-                listaServicos += `▫️ ${s.nome} (R$ ${s.preco})\n`;
-            });
+            servicosSelecionados.forEach(s => { listaServicos += `▫️ ${s.nome}\n`; });
             
-            const msg = `👑 *BILHETE VIP - BARBEARIA DO ZÉ* 👑\n\n` +
-                        `👤 *Nome:* ${nome}\n` +
-                        `💈 *Mestre:* ${barbeiro}\n` +
-                        `📅 *Data:* ${dataFormatada} às ${hora}\n\n` +
-                        `✂️ *Serviços Selecionados:*\n${listaServicos}\n` +
-                        `💰 *Total Estimado:* R$ ${totalEstimado}\n\n` +
-                        `_Por favor, confirme a disponibilidade deste horário._`;
+            const msg = `👑 *TICKET VIP* 👑\n\n👤 *Cliente:* ${nome}\n💈 *Mestre:* ${barbeiro}\n📅 *Data:* ${dataFormatada} às ${hora}\n\n✂️ *Serviços:*\n${listaServicos}\n💰 *Total:* R$ ${totalEstimado}\n\n_Aguardo confirmação._`;
 
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
         }
