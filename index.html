@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT" class="scroll-smooth">
+<html lang="pt-PT" class="scroll-smooth md:cursor-none">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -52,32 +52,19 @@
     </script>
 
     <style>
-        body {
-            background-color: #050505;
-            color: #f3f4f6;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
+        body { background-color: #050505; color: #f3f4f6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; padding-bottom: 80px; }
 
         .text-gradient-gold {
             background: linear-gradient(135deg, #FFE066 0%, #F5B800 50%, #CC9900 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 2px 4px 10px rgba(245, 184, 0, 0.2);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 4px 10px rgba(245, 184, 0, 0.2);
         }
-
         .text-gradient-silver {
             background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 40%, #cccccc 60%, #999999 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.9));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.9));
         }
 
-        /* Efeito de Luz para Botões */
-        @keyframes shine {
-            0% { transform: translateX(-100%) skewX(-15deg); }
-            50%, 100% { transform: translateX(200%) skewX(-15deg); }
-        }
+        /* Efeito de Luz (Shine) */
+        @keyframes shine { 0% { transform: translateX(-100%) skewX(-15deg); } 50%, 100% { transform: translateX(200%) skewX(-15deg); } }
         .animate-shine::after {
             content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
@@ -89,12 +76,8 @@
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Animações UI */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translate(0); }
-
-        .btn-glow { box-shadow: 0 0 20px rgba(245, 184, 0, 0.4); transition: all 0.3s ease; }
-        .btn-glow:active { transform: scale(0.95); box-shadow: 0 0 10px rgba(245, 184, 0, 0.6); }
 
         .glass-card {
             background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -103,78 +86,78 @@
 
         .service-item { transition: all 0.2s ease; cursor: pointer; }
         
-        /* Animação Assertiva ao clicar no serviço */
-        .service-pop { animation: popService 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes popService {
-            0% { transform: scale(1); box-shadow: 0 0 0 rgba(245, 184, 0, 0); }
-            50% { transform: scale(0.96); box-shadow: 0 0 20px rgba(245, 184, 0, 0.6); background-color: rgba(245, 184, 0, 0.2); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(245, 184, 0, 0.2); background-color: rgba(245, 184, 0, 0.15); }
+        /* O Novo Estilo do Serviço Selecionado */
+        .selected-service {
+            border-color: #F5B800 !important;
+            background-color: rgba(245, 184, 0, 0.1) !important;
+            transform: scale(0.98);
         }
+        .selected-service .check-circle {
+            background-color: #F5B800; border-color: #F5B800;
+        }
+        .check-circle {
+            width: 22px; height: 22px; border-radius: 50%; border: 2px solid #444;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        
+        /* Barbeiro Avatar Radio Button */
+        .barber-radio:checked + div {
+            border-color: #F5B800;
+            box-shadow: 0 0 20px rgba(245, 184, 0, 0.4);
+            transform: scale(1.05);
+        }
+        .barber-radio:checked + div img {
+            filter: grayscale(0%);
+        }
+        .barber-radio:checked ~ span { color: #F5B800; font-weight: 900; }
 
-        /* Ajuste inputs Mobile - Foco Total na Usabilidade */
         input[type="text"], input[type="date"], input[type="time"] { font-size: 16px !important; min-height: 52px; }
         ::-webkit-calendar-picker-indicator { filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(10deg); cursor: pointer; width: 24px; height: 24px; }
         
-        /* Letreiros Animados */
         @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-marquee-left { animation: marquee-left 25s linear infinite; }
 
-        /* Animação do Toast (Aviso de Clique) */
-        @keyframes toastFadeTop {
-            0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
-            10%, 90% { opacity: 1; transform: translate(-50%, 0) scale(1); }
-            100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
-        }
+        @keyframes toastFadeTop { 0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } 10%, 90% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } }
         .toast-anim { animation: toastFadeTop 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
-        /* Animação Notificação FOMO Push (Top) */
-        @keyframes fomoDrop {
-            0% { transform: translateY(-100%); opacity: 0; }
-            10%, 90% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100%); opacity: 0; }
-        }
+        @keyframes fomoDrop { 0% { transform: translateY(-100%); opacity: 0; } 10%, 90% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; } }
         .fomo-anim { animation: fomoDrop 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
+        /* Barra flutuante (Smart Cart) */
+        #smart-cart { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .selected-service {
-            border-color: #F5B800 !important;
-            background-color: rgba(245, 184, 0, 0.15) !important;
-        }
-        
-        /* Checkbox Customizado Mobile-like */
-        .check-circle {
-            width: 20px; height: 20px; border-radius: 50%; border: 2px solid #555;
-            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-        }
-        .selected-service .check-circle {
-            border-color: #F5B800; background-color: #F5B800;
-        }
-        
-        /* Estilo do Mapa Google Escuro */
-        .map-container iframe { filter: invert(90%) hue-rotate(180deg) brightness(80%) contrast(110%); border-radius: 1.5rem; }
     </style>
 </head>
 <body class="antialiased selection:bg-gold selection:text-dark overflow-hidden bg-dark">
 
     <div class="noise-overlay"></div>
-
-    <!-- Barra de Progresso de Leitura -->
     <div class="fixed top-0 left-0 w-full h-1.5 bg-transparent z-[110]">
         <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold-dark via-gold to-gold-light transition-all duration-100 ease-out shadow-[0_0_15px_#F5B800]" style="width: 0%"></div>
     </div>
 
-    <!-- Botão Flutuante WhatsApp (Sempre Visível) - Canto Inferior Direito -->
-    <a href="https://wa.me/558396340618" target="_blank" class="fixed bottom-28 right-4 md:bottom-8 md:right-8 z-[100] bg-[#25D366] text-white w-12 h-12 rounded-full shadow-[0_0_15px_rgba(37,211,102,0.4)] flex items-center justify-center border-2 border-white/20 active:scale-90 transition-transform">
-        <i class="fab fa-whatsapp text-2xl"></i>
-    </a>
-
-    <!-- NOTIFICAÇÃO FOMO Estilo Push NATIVA (Topo) -->
-    <div id="fomo-notification" class="fixed top-4 left-4 right-4 mx-auto max-w-[340px] z-[150] bg-[#1a1a1a]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transform -translate-y-full opacity-0 pointer-events-none">
-        <div class="w-10 h-10 bg-gradient-to-br from-gold-dark to-gold-light rounded-full flex items-center justify-center shadow-inner shrink-0">
-            <i class="fas fa-cut text-dark text-lg"></i>
+    <!-- Smart Cart Flutuante (A Grande Surpresa de UX) -->
+    <div id="smart-cart" class="fixed bottom-0 left-0 w-full z-[100] bg-[#111]/95 backdrop-blur-xl border-t border-gold/30 p-4 pb-6 transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)]">
+        <div class="flex flex-col">
+            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white">1</span> Serviço(s)</span>
+            <span class="text-gold font-black text-2xl drop-shadow-md" id="cart-total">R$ 0</span>
         </div>
+        <button onclick="irParaCheckout()" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark px-6 py-3.5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_5px_20px_rgba(245,184,0,0.3)] active:scale-95 transition-transform flex items-center gap-2 relative overflow-hidden animate-shine">
+            Continuar <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- Botão Genérico (Aparece apenas quando não há serviços selecionados) -->
+    <div id="generic-btn" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] z-[90] transition-transform duration-300">
+        <a href="#servicos" class="w-full bg-white/10 backdrop-blur-md text-white py-4 rounded-2xl font-bold uppercase tracking-widest shadow-[0_10px_25px_rgba(0,0,0,0.5)] flex items-center justify-center gap-3 border border-white/20 active:scale-95 transition-transform text-sm">
+            <i class="fas fa-list-ul"></i> Ver Serviços
+        </a>
+    </div>
+
+    <!-- NOTIFICAÇÃO FOMO Estilo Push -->
+    <div id="fomo-notification" class="fixed top-4 left-4 right-4 mx-auto max-w-[340px] z-[150] bg-[#1a1a1a]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transform -translate-y-full opacity-0 pointer-events-none">
+        <div class="w-10 h-10 bg-gradient-to-br from-gold-dark to-gold-light rounded-full flex items-center justify-center shadow-inner shrink-0"><i class="fas fa-cut text-dark text-lg"></i></div>
         <div class="text-left flex-1">
             <div class="flex justify-between items-center mb-0.5">
                 <p class="text-white text-xs font-bold leading-tight"><span id="fomo-name">Alguém</span> agendou agora</p>
@@ -184,12 +167,12 @@
         </div>
     </div>
 
-    <!-- Feedback Tátil e Visual (Toast de Sucesso) -->
+    <!-- Toast Rápido (Topo) -->
     <div id="toast-msg" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[120] bg-gold text-dark font-black px-6 py-2.5 rounded-full shadow-[0_10px_30px_rgba(245,184,0,0.4)] flex items-center gap-2 hidden text-xs md:text-sm border border-gold-light">
-        <i class="fas fa-check-circle text-lg"></i> <span id="toast-text" class="tracking-wide">Adicionado!</span>
+        <i class="fas fa-check-circle text-lg"></i> <span id="toast-text" class="tracking-wide">Atualizado!</span>
     </div>
 
-    <!-- Preloader Cinematográfico -->
+    <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[9999] bg-[#030303] flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out">
         <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-28 h-28 object-contain animate-pulse mb-6 drop-shadow-[0_0_15px_rgba(245,184,0,0.3)]">
         <div class="h-1 w-32 bg-white/10 rounded-full overflow-hidden">
@@ -197,35 +180,29 @@
         </div>
     </div>
 
-    <!-- Navbar Mobile Minimalista -->
+    <!-- Navbar Mobile -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-2 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5">
         <div class="container mx-auto px-4 flex justify-between items-center relative z-20">
             <a href="#" class="flex items-center active:scale-95 transition-transform z-20">
                 <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-12 h-12 object-contain">
             </a>
-            
-            <button class="text-white text-xl p-2 active:scale-90 transition-transform z-50 relative bg-white/5 rounded-full w-10 h-10 flex items-center justify-center" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/558396340618" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center border border-[#25D366]/30 active:scale-90 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                <button class="text-white text-xl p-2 active:scale-90 transition-transform z-50 relative bg-white/5 rounded-full w-10 h-10 flex items-center justify-center" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
         </div>
         
-        <!-- Menu Mobile de Ecrã Inteiro -->
         <div id="mobile-menu" class="fixed inset-0 w-full h-[100svh] bg-[#050505]/98 backdrop-blur-3xl flex flex-col items-center justify-center space-y-6 transition-all duration-300 opacity-0 pointer-events-none z-40">
             <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-24 h-24 object-contain mb-4">
             <a href="#inicio" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">INÍCIO</a>
             <a href="#servicos" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">MENU SERVIÇOS</a>
             <a href="#equipa" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">OS MESTRES</a>
             <a href="#localizacao" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">LOCALIZAÇÃO</a>
-            <a href="#agendamento" class="mobile-link bg-gold text-dark px-10 py-4 rounded-full font-black text-sm tracking-widest active:scale-95 transition-transform mt-6 uppercase w-[80%] text-center">AGENDAR AGORA</a>
+            <button onclick="document.getElementById('mobile-menu-btn').click(); document.getElementById('servicos').scrollIntoView({behavior: 'smooth'})" class="bg-gold text-dark px-10 py-4 rounded-full font-black text-sm tracking-widest active:scale-95 transition-transform mt-6 uppercase w-[80%] text-center shadow-[0_0_30px_rgba(245,184,0,0.3)]">ESCOLHER SERVIÇO</button>
         </div>
     </nav>
 
-    <!-- Botão Agendar Flutuante Principal (Rodapé) -->
-    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] z-[90] pointer-events-none">
-        <a href="#agendamento" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark py-4 rounded-2xl font-black uppercase tracking-widest shadow-[0_10px_25px_rgba(245,184,0,0.3)] flex items-center justify-center gap-3 border border-white/40 active:scale-95 relative overflow-hidden animate-shine pointer-events-auto">
-            <i class="fas fa-calendar-check text-lg"></i> Reservar Meu Horário
-        </a>
-    </div>
-
-    <!-- Hero Section Mobile Focus -->
+    <!-- Hero Section -->
     <section id="inicio" class="relative min-h-[100svh] flex items-center justify-center pt-10 overflow-hidden bg-dark">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1080&q=80" class="w-full h-full object-cover opacity-20 mix-blend-luminosity" alt="Corte">
@@ -233,29 +210,23 @@
         </div>
         
         <div class="container mx-auto px-4 relative z-10 text-center flex flex-col items-center">
-            
             <div class="flex flex-col items-center justify-center mb-6 transform transition-transform duration-1000 translate-y-10 opacity-0" id="hero-social">
                 <div class="flex -space-x-3 mb-2">
                     <img class="w-10 h-10 rounded-full border-2 border-dark object-cover" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="User">
                     <img class="w-10 h-10 rounded-full border-2 border-dark object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" alt="User">
                     <div class="w-10 h-10 rounded-full border-2 border-dark bg-gold flex items-center justify-center text-[10px] font-black text-dark">+2k</div>
                 </div>
-                <div class="flex items-center gap-1 text-gold text-xs">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
+                <div class="flex items-center gap-1 text-gold text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[0.2em] mt-1">Clientes Satisfeitos</p>
             </div>
 
             <div class="transform transition-transform duration-1000 delay-200 translate-y-10 opacity-0 flex flex-col items-center" id="hero-title">
                 <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé" class="w-64 h-64 object-contain drop-shadow-[0_0_25px_rgba(245,184,0,0.2)] mb-2">
-                <p class="text-silver text-xs font-medium tracking-[0.2em] uppercase max-w-xs mx-auto px-4 border-y border-white/10 py-2 bg-white/5 backdrop-blur-sm rounded-lg mt-2">
-                    Cortes de Elite & Experiência
-                </p>
+                <p class="text-silver text-xs font-medium tracking-[0.2em] uppercase max-w-xs mx-auto px-4 border-y border-white/10 py-2 bg-white/5 backdrop-blur-sm rounded-lg mt-2">Cortes de Elite & Experiência</p>
             </div>
         </div>
     </section>
 
-    <!-- Marquee -->
     <div class="bg-gold text-dark py-2 overflow-hidden whitespace-nowrap relative z-20 border-y-2 border-gold-light shadow-[0_0_20px_rgba(245,184,0,0.15)]">
         <div class="animate-marquee-left inline-block font-sans font-black text-sm uppercase tracking-widest">
             <span class="mx-2">AGENDE ONLINE • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
@@ -263,156 +234,103 @@
         </div>
     </div>
 
-    <!-- Serviços Empilhados (App-Like Vertical) -->
+    <!-- SECÇÃO: MENU SERVIÇOS (A Escolha Revolucionária) -->
     <section id="servicos" class="py-16 bg-dark relative">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-10 reveal">
-                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">O que precisa?</span>
-                <h2 class="text-3xl font-logo text-white mb-3">Menu VIP</h2>
-                <p class="text-gray-400 text-xs bg-white/5 border border-white/10 inline-block px-3 py-1.5 rounded-full shadow-inner"><i class="fas fa-hand-pointer text-gold animate-pulse mr-1"></i>Toque para adicionar ao ticket.</p>
+                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Passo 1</span>
+                <h2 class="text-3xl font-logo text-white mb-3">Escolha os Serviços</h2>
+                <p class="text-gray-400 text-xs bg-white/5 border border-white/10 inline-block px-3 py-1.5 rounded-full shadow-inner"><i class="fas fa-hand-pointer text-gold animate-pulse mr-1"></i>Toque nos círculos para adicionar.</p>
             </div>
 
-            <!-- Lista de Categorias Empilhadas -->
             <div class="flex flex-col gap-6 max-w-xl mx-auto">
-                
-                <!-- Categoria: Combos VIP -->
+                <!-- Combos VIP -->
                 <div class="glass-card p-5 reveal border-gold/40 relative overflow-hidden bg-[#111111]/90">
                     <div class="absolute -top-1 -right-1 bg-gold text-dark text-[9px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-widest shadow-lg">Mais Pedidos</div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-gold/20 rounded-xl flex items-center justify-center"><i class="fas fa-star text-gold text-lg"></i></div>
-                        <h3 class="text-lg font-black text-white uppercase tracking-wider">Combos VIP</h3>
-                    </div>
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-gold/20 rounded-xl flex items-center justify-center"><i class="fas fa-star text-gold text-lg"></i></div><h3 class="text-lg font-black text-white uppercase tracking-wider">Combos VIP</h3></div>
                     
                     <div class="space-y-3">
-                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba + Sobrancelha', 50)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center relative overflow-hidden">
-                            <div class="flex items-center gap-3 flex-1">
-                                <div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba + Sobranc.</h4>
-                                    <p class="text-[10px] text-gray-500">Pacote do chefe.</p>
-                                </div>
+                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba + Sobrancelha', 50)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3 flex-1"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
+                                <div><h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba + Sobranc.</h4><p class="text-[10px] text-gray-500">Pacote do chefe.</p></div>
                             </div>
                             <span class="font-black text-gold text-base ml-2">R$ 50</span>
                         </div>
-                        
-                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba', 45)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center relative overflow-hidden">
-                            <div class="flex items-center gap-3 flex-1">
-                                <div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba</h4>
-                                    <p class="text-[10px] text-gray-500">Clássico alinhado.</p>
-                                </div>
+                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba', 45)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3 flex-1"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
+                                <div><h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba</h4><p class="text-[10px] text-gray-500">Clássico alinhado.</p></div>
                             </div>
                             <span class="font-black text-gold text-base ml-2">R$ 45</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Categoria: Cortes -->
+                <!-- Cortes -->
                 <div class="glass-card p-5 reveal">
                     <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
-                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-scissors text-silver text-sm"></i></div>
-                        <h3 class="text-base font-bold text-white uppercase tracking-wider">Cortes Individuais</h3>
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-scissors text-silver text-sm"></i></div><h3 class="text-base font-bold text-white uppercase tracking-wider">Cortes Individuais</h3>
                     </div>
                     <ul class="space-y-2">
-                        <li onclick="toggleServico(this, 'Corte Degradê', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Degradê / Fade</span></div><span class="font-black text-gold">R$ 30</span>
-                        </li>
-                        <li onclick="toggleServico(this, 'Corte Social', 25)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Corte Social</span></div><span class="font-black text-gold">R$ 25</span>
-                        </li>
-                        <li onclick="toggleServico(this, 'Corte Infantil', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Infantil (Kids)</span></div><span class="font-black text-gold">R$ 30</span>
-                        </li>
-                        <li onclick="toggleServico(this, 'Corte na Máquina', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Na Máquina</span></div><span class="font-black text-gold">R$ 20</span>
-                        </li>
+                        <li onclick="toggleServico(this, 'Corte Degradê', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Degradê / Fade</span></div><span class="font-black text-gold">R$ 30</span></li>
+                        <li onclick="toggleServico(this, 'Corte Social', 25)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Corte Social</span></div><span class="font-black text-gold">R$ 25</span></li>
+                        <li onclick="toggleServico(this, 'Corte Infantil', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Infantil (Kids)</span></div><span class="font-black text-gold">R$ 30</span></li>
+                        <li onclick="toggleServico(this, 'Corte na Máquina', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Na Máquina</span></div><span class="font-black text-gold">R$ 20</span></li>
                     </ul>
                 </div>
 
-                <!-- Categoria: Estética & Cor -->
+                <!-- Estética & Pai/Filho (Juntos para poupar espaço mobile) -->
                 <div class="glass-card p-5 reveal">
                     <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
-                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-fire text-silver text-sm"></i></div>
-                        <h3 class="text-base font-bold text-white uppercase tracking-wider">Estética & Cor</h3>
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-fire text-silver text-sm"></i></div><h3 class="text-base font-bold text-white uppercase tracking-wider">Estética & Promos</h3>
                     </div>
                     <ul class="space-y-2">
-                        <li onclick="toggleServico(this, 'Barba Simples', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Barba Simples</span></div><span class="font-black text-gold">R$ 20</span>
-                        </li>
-                        <li onclick="toggleServico(this, 'Sobrancelha', 10)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Sobrancelha</span></div><span class="font-black text-gold">R$ 10</span>
-                        </li>
-                        <li onclick="toggleServico(this, 'Corte + Pintura', 60)" class="service-item flex justify-between items-center p-3 rounded-xl bg-gold/10 border border-gold/20 mt-2">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Corte + Pintura</span></div><span class="font-black text-gold">R$ 60</span>
-                        </li>
-                        <li onclick="toggleServico(this, 'Luzes Nevou', 120)" class="service-item flex justify-between items-center p-3 rounded-xl bg-gold/10 border border-gold/20">
-                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Luzes Nevou</span></div><span class="font-black text-gold">R$ 120</span>
-                        </li>
+                        <li onclick="toggleServico(this, 'Barba Simples', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Barba Simples</span></div><span class="font-black text-gold">R$ 20</span></li>
+                        <li onclick="toggleServico(this, 'Sobrancelha', 10)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Sobrancelha</span></div><span class="font-black text-gold">R$ 10</span></li>
+                        <li onclick="toggleServico(this, 'Luzes Nevou', 120)" class="service-item flex justify-between items-center p-3 rounded-xl bg-gold/5 border border-gold/10"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gold font-bold text-sm">Luzes Nevou</span></div><span class="font-black text-gold">R$ 120</span></li>
+                        <li onclick="toggleServico(this, 'Pai e Filho (Degradê)', 55)" class="service-item flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/10 mt-4"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Promo Pai+Filho</span></div><span class="font-black text-gold">R$ 55</span></li>
                     </ul>
                 </div>
-                
-                <!-- Categoria: Pai & Filho -->
-                <div class="glass-card p-5 reveal relative overflow-hidden flex flex-col gap-3 border-white/10 bg-gradient-to-br from-[#111] to-[#050505]">
-                    <div class="relative z-10 flex items-center justify-between mb-1">
-                        <h3 class="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-users text-gold"></i> Pai & Filho</h3>
-                        <p class="text-[8px] text-gold uppercase bg-gold/10 px-2 py-1 rounded-full border border-gold/20">Seg & Ter</p>
-                    </div>
-                    <div onclick="toggleServico(this, 'Pai e Filho (Degradê)', 55)" class="service-item px-4 py-3 rounded-xl bg-black/50 border border-white/10 flex justify-between items-center">
-                        <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Dupla Degradê</span></div>
-                        <span class="font-black text-gold text-base">R$ 55</span>
-                    </div>
-                    <div onclick="toggleServico(this, 'Pai e Filho (Social)', 45)" class="service-item px-4 py-3 rounded-xl bg-black/50 border border-white/10 flex justify-between items-center">
-                        <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Dupla Social</span></div>
-                        <span class="font-black text-gold text-base">R$ 45</span>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- SECÇÃO: OS MESTRES (Otimizado Mobile) -->
+    <!-- SECÇÃO: OS MESTRES (A Seleção de Barbeiro) -->
     <section id="equipa" class="py-16 bg-[#0a0a0a] relative border-y border-white/5">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-10 reveal">
                 <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">A Elite</span>
-                <h2 class="text-3xl font-logo text-white mb-2">A Nossa Equipa</h2>
+                <h2 class="text-3xl font-logo text-white mb-2">Quem fará o corte?</h2>
             </div>
 
             <div class="flex flex-col gap-6 max-w-sm mx-auto">
                 <!-- Zé -->
-                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[380px] bg-dark border border-white/10">
+                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[300px] bg-dark border border-white/10">
                     <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-16 -left-4 font-logo text-[100px] text-white/10 leading-none pointer-events-none">ZÉ</div>
-
-                    <div class="absolute inset-0 p-5 flex flex-col justify-end z-10 pb-6">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
+                    <div class="absolute bottom-16 -left-4 font-logo text-[100px] text-white/5 leading-none pointer-events-none">ZÉ</div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-end z-10">
                         <div class="mb-3">
-                            <span class="bg-gold text-dark text-[9px] font-black px-2 py-1 rounded-sm uppercase tracking-widest mb-1 inline-block">Master Barber</span>
-                            <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Zé</h3>
-                            <p class="text-gray-300 text-[11px] font-medium">Fundador & Clássicos.</p>
+                            <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Mestre Zé</h3>
+                            <p class="text-gray-300 text-[11px] font-medium">Fundador & Especialista Clássico.</p>
                         </div>
-                        <button onclick="agendarComBarbeiro('Zé')" class="w-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-calendar-check"></i> Agendar com Zé
+                        <button onclick="selecionarBarbeiroDireto('Zé')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-hand-pointer text-gold"></i> Escolher o Zé
                         </button>
                     </div>
                 </div>
 
                 <!-- Jonas -->
-                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[380px] bg-dark border border-white/10">
+                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[300px] bg-dark border border-white/10">
                     <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-16 -right-4 font-logo text-[80px] text-white/10 leading-none pointer-events-none">JONAS</div>
-
-                    <div class="absolute inset-0 p-5 flex flex-col justify-end z-10 pb-6">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
+                    <div class="absolute bottom-16 -right-4 font-logo text-[80px] text-white/5 leading-none pointer-events-none">JONAS</div>
+                    <div class="absolute inset-0 p-5 flex flex-col justify-end z-10">
                         <div class="mb-3">
-                            <span class="bg-silver text-dark text-[9px] font-black px-2 py-1 rounded-sm uppercase tracking-widest mb-1 inline-block">Especialista Fade</span>
                             <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Jonas</h3>
-                            <p class="text-gray-300 text-[11px] font-medium">Mestre do Degradê moderno.</p>
+                            <p class="text-gray-300 text-[11px] font-medium">Mestre do Fade moderno.</p>
                         </div>
-                        <button onclick="agendarComBarbeiro('Jonas')" class="w-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-calendar-check"></i> Agendar com Jonas
+                        <button onclick="selecionarBarbeiroDireto('Jonas')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-hand-pointer text-gold"></i> Escolher o Jonas
                         </button>
                     </div>
                 </div>
@@ -420,146 +338,190 @@
         </div>
     </section>
 
-    <!-- SECÇÃO LOCALIZAÇÃO (Mobile Optimizado) -->
-    <section id="localizacao" class="py-16 bg-dark relative border-b border-white/5">
+    <!-- SECÇÃO LOCALIZAÇÃO (Premium & Mobile) -->
+    <section id="localizacao" class="py-16 bg-dark relative border-t border-white/5">
         <div class="container mx-auto px-4 relative z-10">
-            <div class="glass-card p-5 rounded-[2rem] border-gold/20 reveal flex flex-col space-y-6">
+            <div class="glass-card p-5 rounded-[2rem] border-gold/20 reveal flex flex-col space-y-6 bg-[#111]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 <div class="text-center">
-                    <h3 class="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2"><i class="fas fa-map-marker-alt text-gold"></i> Rua Domingo De Mendeiros</h3>
-                    <p class="text-gray-400 text-xs px-2">Climatizado, Wi-Fi e cerveja gelada.</p>
+                    <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Onde a Mágica Acontece</span>
+                    <h3 class="text-2xl font-bold text-white mb-1 flex items-center justify-center gap-2"><i class="fas fa-map-marker-alt text-gold"></i> O Nosso Espaço</h3>
+                    <p class="text-gray-400 text-xs px-2 mt-2">Ambiente climatizado, Wi-Fi, cerveja gelada e a melhor resenha da cidade enquanto espera.</p>
                 </div>
                 
-                <div class="w-full h-[200px] rounded-2xl overflow-hidden map-container border border-white/10">
+                <div class="w-full h-[220px] rounded-2xl overflow-hidden map-container border border-white/10 shadow-inner relative">
+                    <!-- Mapa Embutido (Substitua a propriedade 'src' pelo embed link real caso tenha um) -->
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15873.914282363532!2d-37.80806461975098!3d-6.76342819999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDUnNDguMyJTIDM3wrA0OCcyOS4wIlc!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
 
-                <a href="https://www.google.com/maps/search/Rua+Domingo+De+Mendeiros/@-6.7661,-37.7978,823m/data=!3m1!1e3?hl=pt-BR" target="_blank" class="bg-white/5 border border-white/20 active:bg-gold/20 text-white font-bold py-4 rounded-xl uppercase text-xs tracking-widest transition-all flex items-center justify-center gap-2">
-                    <i class="fas fa-location-arrow text-gold"></i> Rota GPS
+                <a href="https://www.google.com/maps/search/Rua+Domingo+De+Mendeiros/@-6.7661,-37.7978,823m/data=!3m1!1e3?hl=pt-BR" target="_blank" class="bg-white/10 border border-white/20 active:bg-gold/20 text-white font-bold py-4 rounded-xl uppercase text-xs tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <i class="fas fa-location-arrow text-gold"></i> Abrir Rota no GPS
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- SECÇÃO AVALIAÇÕES -->
-    <section id="depoimentos" class="py-16 bg-dark relative border-b border-white/5 overflow-hidden">
+    <!-- SECÇÃO AVALIAÇÕES (Carrossel Swipe Mobile) -->
+    <section id="depoimentos" class="py-16 bg-[#0a0a0a] relative border-t border-white/5 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-gold/5 via-dark to-dark z-0"></div>
         <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-10 reveal">
+            <div class="text-center mb-8 reveal">
                 <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Prova Social</span>
                 <h2 class="text-3xl font-logo text-white">Voz dos Clientes</h2>
+                <div class="md:hidden mt-3 text-gold flex justify-center items-center gap-2 animate-pulse text-[10px] uppercase tracking-widest bg-gold/10 inline-flex px-3 py-1 rounded-full">
+                    <i class="fas fa-chevron-left"></i> Deslize para ler <i class="fas fa-chevron-right"></i>
+                </div>
             </div>
 
-            <div class="flex flex-col gap-5 max-w-sm mx-auto">
-                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/80">
-                    <div class="flex justify-between items-start mb-4">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold">
-                        <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <!-- Swipe/Carousel Container (App-like behavior) -->
+            <div class="flex overflow-x-auto gap-5 pb-8 no-scrollbar snap-x snap-mandatory px-4 -mx-4 max-w-7xl mx-auto items-stretch">
+                
+                <!-- Cliente 1 -->
+                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/90 min-w-[85vw] md:min-w-[320px] snap-center border-white/10 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
+                            <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <h4 class="text-white font-bold text-base mb-0.5">Marcos Silva</h4>
+                        <span class="text-gold text-[9px] uppercase tracking-widest font-black inline-block mb-3">Cliente Fiel</span>
+                        <p class="text-gray-300 italic text-xs leading-relaxed">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é super rápido e prático. O ambiente é sensacional e o atendimento é de patrão!"</p>
                     </div>
-                    <h4 class="text-white font-bold text-sm">Marcos Silva</h4>
-                    <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é rápido e prático."</p>
                 </div>
                 
-                <div class="glass-card p-6 rounded-3xl reveal border-gold/30 shadow-[0_0_20px_rgba(245,184,0,0.1)] bg-[#1a1a1a]/90">
-                    <div class="flex justify-between items-start mb-4">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold">
-                        <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <!-- Cliente 2 -->
+                <div class="glass-card p-6 rounded-3xl reveal border-gold/40 shadow-[0_0_20px_rgba(245,184,0,0.15)] bg-[#1a1a1a] min-w-[85vw] md:min-w-[320px] snap-center transform md:-translate-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
+                            <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <h4 class="text-white font-bold text-base mb-0.5">Roberto Alves</h4>
+                        <span class="text-silver text-[9px] uppercase tracking-widest font-black inline-block mb-3">Pai & Filho</span>
+                        <p class="text-gray-300 italic text-xs leading-relaxed">"Trago sempre o meu filho na terça-feira para aproveitar a promoção. O Zé tem uma paciência incrível com ele. Melhor barbearia da região!"</p>
                     </div>
-                    <h4 class="text-white font-bold text-sm">Roberto Alves</h4>
-                    <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"Trago o meu filho na terça-feira para aproveitar a promoção. O Zé tem paciência incrível."</p>
                 </div>
+
+                <!-- Cliente 3 -->
+                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/90 min-w-[85vw] md:min-w-[320px] snap-center border-white/10 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <img src="https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?auto=format&fit=crop&w=100&q=80" alt="" class="w-14 h-14 rounded-full object-cover border-2 border-gold shadow-lg">
+                            <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <h4 class="text-white font-bold text-base mb-0.5">Felipe Costa</h4>
+                        <span class="text-gold text-[9px] uppercase tracking-widest font-black inline-block mb-3">Combo VIP</span>
+                        <p class="text-gray-300 italic text-xs leading-relaxed">"A barba lenhador ficou perfeita. Agendar pelo telemóvel e não apanhar fila não tem preço. Serviço de excelência do início ao fim."</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Formulário de Agendamento (App Checkout Style) -->
-    <section id="agendamento" class="py-16 bg-[#050505] relative pb-32">
+    <!-- Formulário Final (Checkout) -->
+    <section id="agendamento" class="py-16 bg-[#050505] relative border-t border-white/5">
         <div class="container mx-auto px-4 relative z-10">
-            <div id="form-container" class="max-w-md mx-auto glass-card border border-gold/30 rounded-[2rem] p-5 shadow-[0_0_40px_rgba(245,184,0,0.1)] reveal transition-all duration-300">
+            <div id="form-container" class="max-w-md mx-auto glass-card border border-gold/30 rounded-[2rem] p-5 shadow-[0_0_40px_rgba(245,184,0,0.1)] reveal transition-all duration-300 bg-[#111]/90">
                 
-                <div class="text-center mb-8 mt-2">
-                    <h2 class="text-2xl font-logo text-white mb-1">Seu Ticket VIP</h2>
+                <div class="text-center mb-6 mt-2">
+                    <h2 class="text-2xl font-logo text-white mb-1">Passo Final</h2>
                     <p class="text-gray-400 text-[11px] uppercase tracking-widest">Confirmação via WhatsApp</p>
                 </div>
 
                 <form id="booking-form" class="space-y-6">
                     
-                    <!-- 1. Profissional -->
-                    <div class="space-y-2">
-                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1">1. O Profissional</label>
-                        <div class="grid grid-cols-3 gap-2 bg-black/60 p-1.5 rounded-xl border border-white/5">
-                            <label class="cursor-pointer">
-                                <input type="radio" name="barber" value="Qualquer Barbeiro" class="peer sr-only" checked id="radio-qualquer">
-                                <div class="text-center py-3 rounded-lg text-gray-500 peer-checked:bg-gold peer-checked:text-dark transition-all text-[11px] font-black uppercase">Auto</div>
+                    <!-- Barbeiro (Foto Avatar Selection) -->
+                    <div class="space-y-3">
+                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1 block text-center">O Seu Barbeiro</label>
+                        <div class="flex gap-3 justify-center mb-2">
+                            
+                            <label class="cursor-pointer group flex flex-col items-center">
+                                <input type="radio" name="barber" value="Qualquer Barbeiro" class="peer barber-radio sr-only" checked id="radio-qualquer">
+                                <div class="w-14 h-14 rounded-full border-2 border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden">
+                                    <i class="fas fa-random text-gray-500 text-xl"></i>
+                                </div>
+                                <span class="text-[10px] mt-1.5 font-bold text-gray-500 uppercase tracking-wider transition-colors">Qualquer</span>
                             </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="barber" value="Zé" class="peer sr-only" id="radio-ze">
-                                <div class="text-center py-3 rounded-lg text-gray-500 peer-checked:bg-gold peer-checked:text-dark transition-all text-[11px] font-black uppercase">ZÉ</div>
+                            
+                            <label class="cursor-pointer group flex flex-col items-center">
+                                <input type="radio" name="barber" value="Zé" class="peer barber-radio sr-only" id="radio-ze">
+                                <div class="w-14 h-14 rounded-full border-2 border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=150&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale" alt="Zé">
+                                </div>
+                                <span class="text-[10px] mt-1.5 font-bold text-gray-500 uppercase tracking-wider transition-colors">Zé</span>
                             </label>
-                            <label class="cursor-pointer">
-                                <input type="radio" name="barber" value="Jonas" class="peer sr-only" id="radio-jonas">
-                                <div class="text-center py-3 rounded-lg text-gray-500 peer-checked:bg-gold peer-checked:text-dark transition-all text-[11px] font-black uppercase">JONAS</div>
+                            
+                            <label class="cursor-pointer group flex flex-col items-center">
+                                <input type="radio" name="barber" value="Jonas" class="peer barber-radio sr-only" id="radio-jonas">
+                                <div class="w-14 h-14 rounded-full border-2 border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=150&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale" alt="Jonas">
+                                </div>
+                                <span class="text-[10px] mt-1.5 font-bold text-gray-500 uppercase tracking-wider transition-colors">Jonas</span>
                             </label>
+                            
                         </div>
                     </div>
 
-                    <!-- 2. Serviços (Carrinho) -->
-                    <div class="space-y-2">
-                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1 flex justify-between">
-                            <span>2. O Serviço</span>
-                            <a href="#servicos" class="text-gray-500 underline lowercase">Adicionar+</a>
-                        </label>
-                        <div class="w-full bg-black/60 border border-white/10 rounded-xl p-4 text-white shadow-inner min-h-[100px] flex flex-col justify-between">
-                            <div id="resumo-servicos" class="mb-3 space-y-2">
-                                <p class="text-gray-600 italic text-[11px] text-center py-2">Toque nos serviços do Menu acima para adicioná-los.</p>
-                            </div>
-                            <div class="border-t border-white/5 pt-3 flex justify-between items-center mt-auto">
-                                <span class="text-gray-500 text-[10px] uppercase font-bold">Total</span>
-                                <span id="resumo-total" class="font-black text-gold text-xl">R$ 0</span>
-                            </div>
+                    <!-- Resumo dos Serviços -->
+                    <div class="bg-black/60 border border-white/10 rounded-xl p-4 shadow-inner relative">
+                        <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest absolute -top-2.5 left-4 bg-[#111] px-2">Serviços (<span id="form-count">0</span>)</label>
+                        <div id="resumo-servicos-form" class="space-y-1 mb-2 mt-1">
+                            <p class="text-gray-600 text-xs italic text-center">Nenhum serviço selecionado.</p>
                         </div>
+                        <div class="flex justify-end mt-2"><a href="#servicos" class="text-gold text-[10px] uppercase font-bold underline decoration-gold/50">Editar Menu</a></div>
                     </div>
 
-                    <!-- 3. Dados (Inputs Nativos Mobile) -->
-                    <div class="space-y-4">
-                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1 block mb-[-8px]">3. Os seus Dados</label>
-                        <input type="text" id="client-name" required placeholder="Seu Nome Completo" 
-                            class="w-full bg-black/80 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-gold text-sm shadow-inner placeholder-gray-600">
-                        
+                    <!-- Dados -->
+                    <div class="space-y-3">
+                        <input type="text" id="client-name" required placeholder="O Seu Nome Completo" class="w-full bg-black/80 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-gold text-sm shadow-inner placeholder-gray-600">
                         <div class="grid grid-cols-2 gap-3">
-                            <input type="date" id="booking-date" required
-                                class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner uppercase">
-                            <input type="time" id="booking-time" required min="09:00" max="20:00"
-                                class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner">
+                            <input type="date" id="booking-date" required class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-gray-300 focus:text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner uppercase">
+                            <input type="time" id="booking-time" required min="09:00" max="20:00" class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-gray-300 focus:text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner">
                         </div>
                     </div>
 
-                    <!-- Botão Final WhatsApp -->
-                    <div class="pt-4">
-                        <button type="button" onclick="gerarTicketZap()" class="w-full bg-[#25D366] text-white font-black py-5 rounded-xl flex justify-center items-center gap-2 shadow-[0_10px_25px_rgba(37,211,102,0.3)] active:scale-95 transition-transform">
-                            <i class="fab fa-whatsapp text-2xl"></i>
-                            <span class="text-sm uppercase tracking-widest">Enviar Pedido Vip</span>
-                        </button>
-                    </div>
+                    <!-- Submit -->
+                    <button type="button" onclick="gerarTicketZap()" class="w-full bg-[#25D366] text-white font-black py-5 rounded-xl flex justify-center items-center gap-2 shadow-[0_10px_25px_rgba(37,211,102,0.3)] active:scale-95 transition-transform mt-4 relative overflow-hidden animate-shine">
+                        <i class="fab fa-whatsapp text-2xl"></i> <span class="text-sm uppercase tracking-widest">Enviar Pedido Vip</span>
+                    </button>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- Footer Simples App-Like -->
-    <footer class="bg-[#030303] pt-10 pb-28 border-t border-white/5 relative z-20">
-        <div class="container mx-auto px-6 text-center flex flex-col items-center">
-            <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-16 h-16 object-contain mb-4 opacity-50 grayscale">
-            <div class="flex justify-center gap-5 mb-6">
-                <a href="#" class="text-gray-600 text-lg"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-gray-600 text-lg"><i class="fab fa-facebook-f"></i></a>
-            </div>
-            <div class="text-gray-700 text-[9px] uppercase tracking-widest font-bold">&copy; 2026 Barbearia do Zé.</div>
+    <footer class="bg-[#030303] pt-10 pb-36 text-center border-t border-white/5 relative z-20">
+        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-16 h-16 object-contain mx-auto mb-4 opacity-50 grayscale">
+        <div class="flex justify-center gap-5 mb-6">
+            <a href="#" class="text-gray-600 hover:text-gold transition-colors text-lg"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-600 hover:text-gold transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
         </div>
+        <div class="text-gray-700 text-[9px] uppercase tracking-widest font-bold">&copy; 2026 Barbearia do Zé.</div>
     </footer>
 
     <script>
         const numeroWhatsApp = "558396340618"; 
+        let servicosSelecionados = [];
+        let totalEstimado = 0;
 
-        // Menu Mobile Toggle Simples
+        // Elementos Globais
+        const smartCart = document.getElementById('smart-cart');
+        const genericBtn = document.getElementById('generic-btn');
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; document.body.classList.remove('overflow-hidden'); }, 800); 
+                document.getElementById('hero-social').classList.remove('translate-y-10', 'opacity-0');
+                document.getElementById('hero-title').classList.remove('translate-y-10', 'opacity-0');
+                iniciarFOMO();
+            }, 1000);
+            document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
+            
+            const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         
@@ -576,30 +538,6 @@
         menuBtn.addEventListener('click', toggleMenu);
         document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', toggleMenu));
 
-        // Inicialização
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; document.body.classList.remove('overflow-hidden'); }, 800); 
-                
-                // Animar Hero
-                document.getElementById('hero-social').classList.remove('translate-y-10', 'opacity-0');
-                document.getElementById('hero-title').classList.remove('translate-y-10', 'opacity-0');
-                iniciarFOMO();
-            }, 1000);
-            document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
-            
-            // Scroll Reveal Simples
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        });
-
-        // Carrinho de Serviços
-        let servicosSelecionados = [];
-        let totalEstimado = 0;
-
         function mostrarToast(mensagem) {
             const toast = document.getElementById('toast-msg');
             document.getElementById('toast-text').innerText = mensagem;
@@ -609,12 +547,13 @@
             setTimeout(() => { toast.classList.add('hidden'); }, 2000);
         }
 
+        // LÓGICA DO CARRINHO INTELIGENTE
         window.toggleServico = function(elemento, nomeServico, preco) {
-            if (navigator.vibrate) navigator.vibrate([30, 20, 30]); // Haptic Feedback rápido
+            if (navigator.vibrate) navigator.vibrate(30); 
 
             const index = servicosSelecionados.findIndex(s => s.nome === nomeServico);
-            const icone = elemento.querySelector('.check-icon');
             
+            // Efeito Pop
             elemento.classList.remove('service-pop');
             void elemento.offsetWidth;
             elemento.classList.add('service-pop');
@@ -623,74 +562,82 @@
                 servicosSelecionados.splice(index, 1);
                 totalEstimado -= preco;
                 elemento.classList.remove('selected-service');
-                if(icone) icone.style.opacity = '0';
-                mostrarToast("Removido!");
             } else {
                 servicosSelecionados.push({nome: nomeServico, preco: preco});
                 totalEstimado += preco;
                 elemento.classList.add('selected-service');
-                if(icone) icone.style.opacity = '1';
-                mostrarToast("Adicionado!");
             }
-            atualizarCaixaResumo();
+            
+            atualizarCarrinhoFlutuante();
+            atualizarResumoFormulario();
         };
 
-        function atualizarCaixaResumo() {
-            const container = document.getElementById('resumo-servicos');
-            const totalVisor = document.getElementById('resumo-total');
+        function atualizarCarrinhoFlutuante() {
+            const count = servicosSelecionados.length;
+            document.getElementById('cart-count').innerText = count;
+            document.getElementById('cart-total').innerText = `R$ ${totalEstimado}`;
             
-            if(servicosSelecionados.length === 0) {
-                container.innerHTML = '<p class="text-gray-600 italic text-[11px] text-center py-2">Toque nos serviços do Menu acima para adicioná-los.</p>';
-                totalVisor.innerText = 'R$ 0';
+            if(count > 0) {
+                genericBtn.classList.add('translate-y-[150%]'); // Esconde botão genérico
+                smartCart.classList.remove('translate-y-full'); // Mostra carrinho
             } else {
-                container.innerHTML = servicosSelecionados.map(s => `
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-white text-xs"><i class="fas fa-check text-gold text-[8px] mr-1"></i>${s.nome}</span>
-                        <span class="text-gold font-bold text-xs">R$ ${s.preco}</span>
-                    </div>
-                `).join('');
-                totalVisor.innerText = `R$ ${totalEstimado}`;
+                genericBtn.classList.remove('translate-y-[150%]');
+                smartCart.classList.add('translate-y-full');
             }
         }
 
-        window.agendarComBarbeiro = function(barbeiroNome) {
+        function atualizarResumoFormulario() {
+            const container = document.getElementById('resumo-servicos-form');
+            document.getElementById('form-count').innerText = servicosSelecionados.length;
+            
+            if(servicosSelecionados.length === 0) {
+                container.innerHTML = '<p class="text-gray-600 text-[10px] uppercase font-bold text-center py-2"><i class="fas fa-exclamation-circle text-gold mr-1"></i> Escolha os serviços acima</p>';
+            } else {
+                container.innerHTML = servicosSelecionados.map(s => `<div class="flex justify-between text-white text-[11px] font-bold"><span class="truncate pr-2">- ${s.nome}</span><span class="text-gold">R$${s.preco}</span></div>`).join('');
+            }
+        }
+
+        window.irParaCheckout = function() {
+            if (navigator.vibrate) navigator.vibrate(40);
+            document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('form-container').classList.add('ring-2', 'ring-gold', 'bg-gold/5');
+            setTimeout(() => document.getElementById('form-container').classList.remove('ring-2', 'ring-gold', 'bg-gold/5'), 800);
+            smartCart.classList.add('translate-y-full'); // Esconde carrinho para não atrapalhar form
+        };
+
+        // LÓGICA DE ESCOLHA DIRETA DE BARBEIRO
+        window.selecionarBarbeiroDireto = function(barbeiroNome) {
+            if (navigator.vibrate) navigator.vibrate([40, 20, 40]);
+            
+            // Marca o Avatar no formulário
             if(barbeiroNome === 'Zé') document.getElementById('radio-ze').checked = true;
             if(barbeiroNome === 'Jonas') document.getElementById('radio-jonas').checked = true;
             
-            mostrarToast(barbeiroNome + " Escolhido!");
-            if (navigator.vibrate) navigator.vibrate([40]);
+            mostrarToast("👍 " + barbeiroNome + " Selecionado!");
             
+            // Em vez de ir para o form vazio, leva para os serviços para ele montar o ticket
             setTimeout(() => {
-                document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
-                document.getElementById('form-container').classList.add('ring-2', 'ring-gold', 'bg-gold/5');
-                setTimeout(() => document.getElementById('form-container').classList.remove('ring-2', 'ring-gold', 'bg-gold/5'), 800);
-            }, 300);
-        }
+                document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
+            }, 600);
+        };
 
-        // FOMO (Topo Push Notification)
         function iniciarFOMO() {
             const fomoEl = document.getElementById('fomo-notification');
-            const nomes = ["Mateus", "Lucas", "João", "Pedro", "Felipe", "Gabriel", "Carlos"];
+            const nomes = ["Mateus", "Lucas", "João", "Pedro", "Felipe"];
             const servicos = ["Combo VIP", "Corte Degradê", "Luzes Nevou"];
             
             function dispararNotificacao() {
                 document.getElementById('fomo-name').innerText = nomes[Math.floor(Math.random() * nomes.length)];
                 document.getElementById('fomo-service').innerText = servicos[Math.floor(Math.random() * servicos.length)];
-                
                 fomoEl.classList.remove('pointer-events-none');
                 fomoEl.classList.add('fomo-anim');
                 
-                setTimeout(() => { 
-                    fomoEl.classList.remove('fomo-anim'); 
-                    fomoEl.classList.add('pointer-events-none');
-                }, 4000);
-                
-                setTimeout(dispararNotificacao, Math.floor(Math.random() * 15000) + 20000);
+                setTimeout(() => { fomoEl.classList.remove('fomo-anim'); fomoEl.classList.add('pointer-events-none'); }, 4000);
+                setTimeout(dispararNotificacao, Math.floor(Math.random() * 20000) + 15000);
             }
             setTimeout(dispararNotificacao, 5000);
         }
 
-        // WhatsApp Ticket
         window.gerarTicketZap = function() {
             const nome = document.getElementById('client-name').value.trim();
             const data = document.getElementById('booking-date').value;
@@ -698,7 +645,7 @@
             const barbeiro = document.querySelector('input[name="barber"]:checked').value;
 
             if(servicosSelecionados.length === 0) {
-                alert("⚠️ Selecione um serviço no Menu para gerar o seu ticket.");
+                alert("⚠️ Selecione pelo menos um serviço no Menu para gerar o seu ticket.");
                 document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
                 return;
             }
