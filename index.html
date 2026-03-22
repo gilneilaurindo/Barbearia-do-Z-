@@ -58,10 +58,6 @@
             background: linear-gradient(135deg, #FFE066 0%, #F5B800 50%, #CC9900 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 4px 10px rgba(245, 184, 0, 0.2);
         }
-        .text-gradient-silver {
-            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 40%, #cccccc 60%, #999999 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.9));
-        }
 
         /* Efeito de Luz (Shine) */
         @keyframes shine { 0% { transform: translateX(-100%) skewX(-15deg); } 50%, 100% { transform: translateX(200%) skewX(-15deg); } }
@@ -95,10 +91,19 @@
         .selected-service .check-circle {
             background-color: #F5B800; border-color: #F5B800;
         }
+        .selected-service .check-icon { opacity: 1 !important; }
+
         .check-circle {
             width: 22px; height: 22px; border-radius: 50%; border: 2px solid #444;
             display: flex; align-items: center; justify-content: center; transition: all 0.2s;
         }
+
+        @keyframes servicePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .service-pop { animation: servicePop 0.3s ease-out; }
         
         /* Barbeiro Avatar Radio Button */
         .barber-radio:checked + div {
@@ -111,41 +116,60 @@
         }
         .barber-radio:checked ~ span { color: #F5B800; font-weight: 900; }
 
-        /* Ajuste inputs Mobile para se adaptarem bem e Dark Mode no calendário/relogio */
+        /* Ajuste inputs Mobile */
         input[type="text"], input[type="date"], input[type="time"] { 
             font-size: 16px !important; 
             min-height: 52px; 
-            color-scheme: dark; /* Força o teclado/seletor a ser dark mode */
+            color-scheme: dark;
         }
         ::-webkit-calendar-picker-indicator { filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(10deg); cursor: pointer; width: 24px; height: 24px; }
         
         @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-marquee-left { animation: marquee-left 25s linear infinite; }
 
-        @keyframes toastFadeTop { 0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } 10%, 90% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } }
-        .toast-anim { animation: toastFadeTop 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes toastFadeTop { 0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } 15%, 85% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } }
+        .toast-anim { animation: toastFadeTop 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         
-        @keyframes fomoDrop { 0% { transform: translateY(-100%); opacity: 0; } 10%, 90% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; } }
-        .fomo-anim { animation: fomoDrop 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        /* FOMO ANIMATION FIX */
+        #fomo-notification { transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .fomo-visible { transform: translateY(0) !important; opacity: 1 !important; }
 
         /* Barra flutuante (Smart Cart) */
         #smart-cart { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* CAROUSEL SNAP */
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            padding: 10px;
+        }
+        .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; transition: all 0.3s; }
+        .carousel-dot.active { background: #F5B800; width: 20px; border-radius: 10px; }
     </style>
 </head>
-<body class="antialiased selection:bg-gold selection:text-dark overflow-hidden bg-dark">
+<body class="antialiased selection:bg-gold selection:text-dark overflow-x-hidden bg-dark">
 
     <div class="noise-overlay"></div>
-    <div class="fixed top-0 left-0 w-full h-1.5 bg-transparent z-[110]">
-        <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold-dark via-gold to-gold-light transition-all duration-100 ease-out shadow-[0_0_15px_#F5B800]" style="width: 0%"></div>
+    
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1.5 bg-transparent z-[210]">
+        <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold-dark via-gold to-gold-light transition-all duration-100 shadow-[0_0_15px_#F5B800]" style="width: 0%"></div>
     </div>
 
-    <!-- Smart Cart Flutuante (A Grande Surpresa de UX) -->
-    <div id="smart-cart" class="fixed bottom-0 left-0 w-full z-[100] bg-[#111]/95 backdrop-blur-xl border-t border-gold/30 p-4 pb-6 transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)]">
+    <!-- Smart Cart Flutuante -->
+    <div id="smart-cart" class="fixed bottom-0 left-0 w-full z-[100] bg-[#111]/95 backdrop-blur-xl border-t border-gold/30 p-4 pb-10 transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)]">
         <div class="flex flex-col">
-            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white">1</span> Serviço(s)</span>
+            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white">0</span> Serviço(s)</span>
             <span class="text-gold font-black text-2xl drop-shadow-md" id="cart-total">R$ 0</span>
         </div>
         <button onclick="irParaCheckout()" class="bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark px-6 py-3.5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_5px_20px_rgba(245,184,0,0.3)] active:scale-95 transition-transform flex items-center gap-2 relative overflow-hidden animate-shine">
@@ -153,27 +177,27 @@
         </button>
     </div>
 
-    <!-- Botão Genérico (Aparece apenas quando não há serviços selecionados) -->
+    <!-- Botão Genérico -->
     <div id="generic-btn" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] z-[90] transition-transform duration-300">
         <a href="#servicos" class="w-full bg-white/10 backdrop-blur-md text-white py-4 rounded-2xl font-bold uppercase tracking-widest shadow-[0_10px_25px_rgba(0,0,0,0.5)] flex items-center justify-center gap-3 border border-white/20 active:scale-95 transition-transform text-sm">
             <i class="fas fa-list-ul"></i> Ver Serviços
         </a>
     </div>
 
-    <!-- NOTIFICAÇÃO FOMO Estilo Push -->
-    <div id="fomo-notification" class="fixed top-4 left-4 right-4 mx-auto max-w-[340px] z-[150] bg-[#1a1a1a]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transform -translate-y-full opacity-0 pointer-events-none">
-        <div class="w-10 h-10 bg-gradient-to-br from-gold-dark to-gold-light rounded-full flex items-center justify-center shadow-inner shrink-0"><i class="fas fa-cut text-dark text-lg"></i></div>
+    <!-- NOTIFICAÇÃO FOMO Estilo Push (CORRIGIDO) -->
+    <div id="fomo-notification" class="fixed top-4 left-4 right-4 mx-auto max-w-[340px] z-[250] bg-[#1a1a1a]/95 backdrop-blur-xl border border-gold/20 rounded-2xl p-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] transform -translate-y-32 opacity-0">
+        <div class="w-10 h-10 bg-gradient-to-br from-gold-dark to-gold-light rounded-full flex items-center justify-center shadow-inner shrink-0"><i class="fas fa-calendar-check text-dark text-lg"></i></div>
         <div class="text-left flex-1">
             <div class="flex justify-between items-center mb-0.5">
                 <p class="text-white text-xs font-bold leading-tight"><span id="fomo-name">Alguém</span> agendou agora</p>
-                <span class="text-gray-500 text-[9px]">agora mesmo</span>
+                <span class="text-gray-500 text-[9px]">agora</span>
             </div>
             <p class="text-gold text-[11px] font-medium leading-none" id="fomo-service">Combo VIP</p>
         </div>
     </div>
 
-    <!-- Toast Rápido (Topo) -->
-    <div id="toast-msg" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[120] bg-gold text-dark font-black px-6 py-2.5 rounded-full shadow-[0_10px_30px_rgba(245,184,0,0.4)] flex items-center gap-2 hidden text-xs md:text-sm border border-gold-light">
+    <!-- Toast -->
+    <div id="toast-msg" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-[120] bg-gold text-dark font-black px-6 py-2.5 rounded-full shadow-[0_10px_30px_rgba(245,184,0,0.4)] flex items-center gap-2 hidden text-xs border border-gold-light">
         <i class="fas fa-check-circle text-lg"></i> <span id="toast-text" class="tracking-wide">Atualizado!</span>
     </div>
 
@@ -185,7 +209,7 @@
         </div>
     </div>
 
-    <!-- Navbar Mobile com z-index elevadíssimo (200) para evitar problemas -->
+    <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-[200] transition-all duration-300 py-2 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5">
         <div class="container mx-auto px-4 flex justify-between items-center relative z-20">
             <a href="#" class="flex items-center active:scale-95 transition-transform z-20">
@@ -197,14 +221,13 @@
             </div>
         </div>
         
-        <!-- Menu Mobile totalmente sólido para leitura perfeita -->
         <div id="mobile-menu" class="fixed inset-0 w-full h-[100svh] bg-[#050505] flex flex-col items-center justify-center space-y-6 transition-all duration-300 opacity-0 pointer-events-none z-[190]">
             <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-24 h-24 object-contain mb-4">
-            <a href="#inicio" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">INÍCIO</a>
-            <a href="#servicos" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">MENU SERVIÇOS</a>
-            <a href="#equipa" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">OS MESTRES</a>
-            <a href="#localizacao" class="mobile-link text-white font-black tracking-widest text-xl active:text-gold transition-colors">LOCALIZAÇÃO</a>
-            <button onclick="document.getElementById('mobile-menu-btn').click(); document.getElementById('servicos').scrollIntoView({behavior: 'smooth'})" class="bg-gold text-dark px-10 py-4 rounded-full font-black text-sm tracking-widest active:scale-95 transition-transform mt-6 uppercase w-[80%] text-center shadow-[0_0_30px_rgba(245,184,0,0.3)]">ESCOLHER SERVIÇO</button>
+            <a href="#inicio" class="mobile-link text-white font-black tracking-widest text-xl hover:text-gold transition-colors">INÍCIO</a>
+            <a href="#servicos" class="mobile-link text-white font-black tracking-widest text-xl hover:text-gold transition-colors">MENU SERVIÇOS</a>
+            <a href="#equipa" class="mobile-link text-white font-black tracking-widest text-xl hover:text-gold transition-colors">OS MESTRES</a>
+            <a href="#depoimentos" class="mobile-link text-white font-black tracking-widest text-xl hover:text-gold transition-colors">FEEDBACK</a>
+            <button onclick="toggleMenu(); document.getElementById('servicos').scrollIntoView({behavior: 'smooth'})" class="bg-gold text-dark px-10 py-4 rounded-full font-black text-sm tracking-widest active:scale-95 transition-transform mt-6 uppercase w-[80%] text-center shadow-[0_0_30px_rgba(245,184,0,0.3)]">ESCOLHER SERVIÇO</button>
         </div>
     </nav>
 
@@ -216,7 +239,7 @@
         </div>
         
         <div class="container mx-auto px-4 relative z-10 text-center flex flex-col items-center">
-            <div class="flex flex-col items-center justify-center mb-6 transform transition-transform duration-1000 translate-y-10 opacity-0" id="hero-social">
+            <div class="flex flex-col items-center justify-center mb-6 transform transition-all duration-1000 translate-y-10 opacity-0" id="hero-social">
                 <div class="flex -space-x-3 mb-2">
                     <img class="w-10 h-10 rounded-full border-2 border-dark object-cover" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&auto=format&fit=crop" alt="User">
                     <img class="w-10 h-10 rounded-full border-2 border-dark object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" alt="User">
@@ -226,21 +249,23 @@
                 <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[0.2em] mt-1">Clientes Satisfeitos</p>
             </div>
 
-            <div class="transform transition-transform duration-1000 delay-200 translate-y-10 opacity-0 flex flex-col items-center" id="hero-title">
+            <div class="transform transition-all duration-1000 delay-200 translate-y-10 opacity-0 flex flex-col items-center" id="hero-title">
                 <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé" class="w-64 h-64 object-contain drop-shadow-[0_0_25px_rgba(245,184,0,0.2)] mb-2">
                 <p class="text-silver text-xs font-medium tracking-[0.2em] uppercase max-w-xs mx-auto px-4 border-y border-white/10 py-2 bg-white/5 backdrop-blur-sm rounded-lg mt-2">Cortes de Elite & Experiência</p>
+                <a href="#servicos" class="mt-8 bg-gold text-dark px-12 py-4 rounded-full font-black text-xs tracking-[0.2em] uppercase shadow-[0_15px_40px_rgba(245,184,0,0.3)] hover:scale-105 active:scale-95 transition-all animate-shine relative overflow-hidden">Agendar Agora</a>
             </div>
         </div>
     </section>
 
-    <div class="bg-gold text-dark py-2 overflow-hidden whitespace-nowrap relative z-20 border-y-2 border-gold-light shadow-[0_0_20px_rgba(245,184,0,0.15)]">
+    <!-- Marquee -->
+    <div class="bg-gold text-dark py-2 overflow-hidden whitespace-nowrap relative z-20 border-y-2 border-gold-light shadow-lg">
         <div class="animate-marquee-left inline-block font-sans font-black text-sm uppercase tracking-widest">
             <span class="mx-2">AGENDE ONLINE • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
             <span class="mx-2">AGENDE ONLINE • CORTES CLÁSSICOS • BARBOTERAPIA • ESTILO SUPREMO • EXPERIÊNCIA VIP • </span>
         </div>
     </div>
 
-    <!-- SECÇÃO: MENU SERVIÇOS (A Escolha Revolucionária) -->
+    <!-- Serviços -->
     <section id="servicos" class="py-16 bg-dark relative">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-10 reveal">
@@ -252,17 +277,17 @@
             <div class="flex flex-col gap-6 max-w-xl mx-auto">
                 <!-- Combos VIP -->
                 <div class="glass-card p-5 reveal border-gold/40 relative overflow-hidden bg-[#111111]/90">
-                    <div class="absolute -top-1 -right-1 bg-gold text-dark text-[9px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-widest shadow-lg">Mais Pedidos</div>
-                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-gold/20 rounded-xl flex items-center justify-center"><i class="fas fa-star text-gold text-lg"></i></div><h3 class="text-lg font-black text-white uppercase tracking-wider">Combos VIP</h3></div>
+                    <div class="absolute -top-1 -right-1 bg-gold text-dark text-[9px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-widest shadow-lg">Destaques</div>
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-gold/20 rounded-xl flex items-center justify-center"><i class="fas fa-crown text-gold text-lg"></i></div><h3 class="text-lg font-black text-white uppercase tracking-wider">Combos VIP</h3></div>
                     
                     <div class="space-y-3">
-                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba + Sobrancelha', 50)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center">
+                        <div onclick="toggleServico(this, 'Cabelo + Barba + Sobrancelha', 50)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center group">
                             <div class="flex items-center gap-3 flex-1"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
-                                <div><h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba + Sobranc.</h4><p class="text-[10px] text-gray-500">Pacote do chefe.</p></div>
+                                <div><h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba + Sobranc.</h4><p class="text-[10px] text-gray-500">Completo de verdade.</p></div>
                             </div>
                             <span class="font-black text-gold text-base ml-2">R$ 50</span>
                         </div>
-                        <div onclick="toggleServico(this, 'Combo Cabelo + Barba', 45)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center">
+                        <div onclick="toggleServico(this, 'Cabelo + Barba', 45)" class="service-item bg-black/40 border border-white/5 rounded-xl p-4 flex justify-between items-center group">
                             <div class="flex items-center gap-3 flex-1"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div>
                                 <div><h4 class="font-bold text-white text-sm mb-0.5">Cabelo + Barba</h4><p class="text-[10px] text-gray-500">Clássico alinhado.</p></div>
                             </div>
@@ -274,69 +299,56 @@
                 <!-- Cortes -->
                 <div class="glass-card p-5 reveal">
                     <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
-                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-scissors text-silver text-sm"></i></div><h3 class="text-base font-bold text-white uppercase tracking-wider">Cortes Individuais</h3>
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-scissors text-silver text-sm"></i></div><h3 class="text-base font-bold text-white uppercase tracking-wider">Cortes</h3>
                     </div>
                     <ul class="space-y-2">
-                        <li onclick="toggleServico(this, 'Corte Degradê', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Degradê / Fade</span></div><span class="font-black text-gold">R$ 30</span></li>
-                        <li onclick="toggleServico(this, 'Corte Social', 25)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Corte Social</span></div><span class="font-black text-gold">R$ 25</span></li>
-                        <li onclick="toggleServico(this, 'Corte Infantil', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Infantil (Kids)</span></div><span class="font-black text-gold">R$ 30</span></li>
-                        <li onclick="toggleServico(this, 'Corte na Máquina', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Na Máquina</span></div><span class="font-black text-gold">R$ 20</span></li>
-                    </ul>
-                </div>
-
-                <!-- Estética & Pai/Filho -->
-                <div class="glass-card p-5 reveal">
-                    <div class="flex items-center gap-3 mb-4 border-b border-white/5 pb-3">
-                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><i class="fas fa-fire text-silver text-sm"></i></div><h3 class="text-base font-bold text-white uppercase tracking-wider">Estética & Promos</h3>
-                    </div>
-                    <ul class="space-y-2">
-                        <li onclick="toggleServico(this, 'Barba Simples', 20)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Barba Simples</span></div><span class="font-black text-gold">R$ 20</span></li>
-                        <li onclick="toggleServico(this, 'Sobrancelha', 10)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Sobrancelha</span></div><span class="font-black text-gold">R$ 10</span></li>
-                        <li onclick="toggleServico(this, 'Luzes Nevou', 120)" class="service-item flex justify-between items-center p-3 rounded-xl bg-gold/5 border border-gold/10"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gold font-bold text-sm">Luzes Nevou</span></div><span class="font-black text-gold">R$ 120</span></li>
-                        <li onclick="toggleServico(this, 'Pai e Filho (Degradê)', 55)" class="service-item flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/10 mt-4"><div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-white font-bold text-sm">Promo Pai+Filho</span></div><span class="font-black text-gold">R$ 55</span></li>
+                        <li onclick="toggleServico(this, 'Corte Degradê', 30)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Degradê / Fade</span></div><span class="font-black text-gold">R$ 30</span>
+                        </li>
+                        <li onclick="toggleServico(this, 'Corte Social', 25)" class="service-item flex justify-between items-center p-3 rounded-xl bg-black/30 border border-white/5">
+                            <div class="flex items-center gap-3"><div class="check-circle shrink-0"><i class="fas fa-check text-dark text-[10px] opacity-0 check-icon"></i></div><span class="text-gray-200 font-bold text-sm">Corte Social</span></div><span class="font-black text-gold">R$ 25</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECÇÃO: OS MESTRES -->
+    <!-- Mestres -->
     <section id="equipa" class="py-16 bg-[#0a0a0a] relative border-y border-white/5">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-10 reveal">
-                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">A Elite</span>
+                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">A Escolha</span>
                 <h2 class="text-3xl font-logo text-white mb-2">Quem fará o corte?</h2>
             </div>
 
             <div class="flex flex-col gap-6 max-w-sm mx-auto">
                 <!-- Zé -->
-                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[300px] bg-dark border border-white/10">
-                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
-                    <div class="absolute bottom-16 -left-4 font-logo text-[100px] text-white/5 leading-none pointer-events-none">ZÉ</div>
+                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[280px] bg-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
                     <div class="absolute inset-0 p-5 flex flex-col justify-end z-10">
                         <div class="mb-3">
-                            <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Mestre Zé</h3>
-                            <p class="text-gray-300 text-[11px] font-medium">Fundador & Especialista Clássico.</p>
+                            <h3 class="text-2xl font-black text-white uppercase tracking-tighter">Mestre Zé</h3>
+                            <p class="text-gold text-[10px] font-bold uppercase tracking-widest">Especialista em clássicos</p>
                         </div>
-                        <button onclick="selecionarBarbeiroDireto('Zé')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-hand-pointer text-gold"></i> Escolher o Zé
+                        <button onclick="selecionarBarbeiroDireto('Zé')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3 rounded-xl uppercase text-[10px] tracking-widest hover:bg-gold hover:text-dark transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-check-circle"></i> Selecionar Zé
                         </button>
                     </div>
                 </div>
 
                 <!-- Jonas -->
-                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[300px] bg-dark border border-white/10">
-                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none"></div>
-                    <div class="absolute bottom-16 -right-4 font-logo text-[80px] text-white/5 leading-none pointer-events-none">JONAS</div>
+                <div class="relative rounded-3xl overflow-hidden group reveal shadow-2xl h-[280px] bg-dark border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=600&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
                     <div class="absolute inset-0 p-5 flex flex-col justify-end z-10">
                         <div class="mb-3">
-                            <h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-0.5">Jonas</h3>
-                            <p class="text-gray-300 text-[11px] font-medium">Mestre do Fade moderno.</p>
+                            <h3 class="text-2xl font-black text-white uppercase tracking-tighter">Jonas</h3>
+                            <p class="text-gold text-[10px] font-bold uppercase tracking-widest">Mestre do Fade Moderno</p>
                         </div>
-                        <button onclick="selecionarBarbeiroDireto('Jonas')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 rounded-xl uppercase text-xs tracking-widest active:bg-gold active:text-dark transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-hand-pointer text-gold"></i> Escolher o Jonas
+                        <button onclick="selecionarBarbeiroDireto('Jonas')" class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3 rounded-xl uppercase text-[10px] tracking-widest hover:bg-gold hover:text-dark transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-check-circle"></i> Selecionar Jonas
                         </button>
                     </div>
                 </div>
@@ -344,105 +356,133 @@
         </div>
     </section>
 
-    <!-- SECÇÃO AVALIAÇÕES (Compacta Mobile) -->
+    <!-- Depoimentos Carrossel (CORRIGIDO) -->
     <section id="depoimentos" class="py-16 bg-dark relative border-b border-white/5 overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-10 reveal">
-                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Prova Social</span>
+                <span class="text-gold text-[10px] font-black tracking-[0.3em] uppercase mb-1 block">Feedback</span>
                 <h2 class="text-3xl font-logo text-white">Voz dos Clientes</h2>
             </div>
-            <div class="flex flex-col gap-5 max-w-sm mx-auto">
-                <div class="glass-card p-6 rounded-3xl reveal bg-[#111]/80">
-                    <div class="flex justify-between items-start mb-4">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold">
-                        <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+
+            <div class="relative max-w-sm mx-auto">
+                <div id="carousel" class="carousel-container no-scrollbar">
+                    <div class="carousel-item">
+                        <div class="glass-card p-6 rounded-3xl bg-[#111]/80 border-gold/10">
+                            <div class="flex justify-between items-start mb-4">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold shadow-lg">
+                                <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                            <h4 class="text-white font-bold text-sm">Marcos Silva</h4>
+                            <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é rápido e prático."</p>
+                        </div>
                     </div>
-                    <h4 class="text-white font-bold text-sm">Marcos Silva</h4>
-                    <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"O Jonas manda muito bem no degradê. Agendar aqui pelo site é rápido e prático."</p>
+                    <div class="carousel-item">
+                        <div class="glass-card p-6 rounded-3xl bg-[#111]/80 border-gold/10">
+                            <div class="flex justify-between items-start mb-4">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold shadow-lg">
+                                <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                            <h4 class="text-white font-bold text-sm">Ricardo Mendes</h4>
+                            <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"Lugar de confiança! O Zé é um mestre dos clássicos. Não troco por nada."</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="glass-card p-6 rounded-3xl bg-[#111]/80 border-gold/10">
+                            <div class="flex justify-between items-start mb-4">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" alt="" class="w-12 h-12 rounded-full object-cover border border-gold shadow-lg">
+                                <div class="flex text-gold text-[10px]"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            </div>
+                            <h4 class="text-white font-bold text-sm">André Lima</h4>
+                            <p class="text-gray-300 italic text-xs leading-relaxed mt-2">"Ambiente top, cerveja gelada e o corte impecável. Nota 10!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dots -->
+                <div class="flex justify-center gap-2 mt-6" id="carousel-dots">
+                    <div class="carousel-dot active"></div>
+                    <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Formulário Final (Checkout - Aumentado o Padding Bottom para não esconder campos) -->
-    <section id="agendamento" class="py-16 bg-[#050505] relative border-t border-white/5 pb-40 md:pb-32">
+    <!-- Agendamento -->
+    <section id="agendamento" class="py-16 bg-[#050505] relative border-t border-white/5 pb-40">
         <div class="container mx-auto px-4 relative z-10">
-            <div id="form-container" class="max-w-md mx-auto glass-card border border-gold/30 rounded-[2rem] p-5 shadow-[0_0_40px_rgba(245,184,0,0.1)] reveal transition-all duration-300 bg-[#111]/90">
-                
-                <div class="text-center mb-6 mt-2">
-                    <h2 class="text-2xl font-logo text-white mb-1">Passo Final</h2>
-                    <p class="text-gray-400 text-[11px] uppercase tracking-widest">Confirmação via WhatsApp</p>
+            <div id="form-container" class="max-w-md mx-auto glass-card border border-gold/30 rounded-[2rem] p-6 shadow-2xl reveal bg-[#111]/90">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-logo text-white mb-1">Finalizar Reserva</h2>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-[0.2em]">Confirmação instantânea</p>
                 </div>
 
                 <form id="booking-form" class="space-y-6">
-                    
-                    <!-- Barbeiro (Foto Avatar Selection) -->
+                    <!-- Barbeiro Select -->
                     <div class="space-y-3">
-                        <label class="text-[10px] text-gold font-black uppercase tracking-widest ml-1 block text-center">O Seu Barbeiro</label>
-                        <div class="flex gap-3 justify-center mb-2">
-                            
+                        <label class="text-[10px] text-gold font-black uppercase tracking-widest text-center block">Escolha seu Barbeiro</label>
+                        <div class="flex gap-4 justify-center">
                             <label class="cursor-pointer group flex flex-col items-center">
-                                <input type="radio" name="barber" value="Qualquer Barbeiro" class="peer barber-radio sr-only" checked id="radio-qualquer">
+                                <input type="radio" name="barber" value="Qualquer" class="peer sr-only barber-radio" checked>
                                 <div class="w-14 h-14 rounded-full border-2 border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden">
-                                    <i class="fas fa-random text-gray-500 text-xl"></i>
+                                    <i class="fas fa-users text-gray-500 text-xl"></i>
                                 </div>
-                                <span class="text-[10px] mt-1.5 font-bold text-gray-500 uppercase tracking-wider transition-colors">Qualquer</span>
+                                <span class="text-[9px] mt-1.5 font-bold text-gray-500 uppercase">Qualquer</span>
                             </label>
-                            
                             <label class="cursor-pointer group flex flex-col items-center">
-                                <input type="radio" name="barber" value="Zé" class="peer barber-radio sr-only" id="radio-ze">
+                                <input type="radio" name="barber" value="Zé" id="radio-ze" class="peer sr-only barber-radio">
                                 <div class="w-14 h-14 rounded-full border-2 border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=150&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale" alt="Zé">
+                                    <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=150&auto=format&fit=crop" class="w-full h-full object-cover grayscale" alt="Zé">
                                 </div>
-                                <span class="text-[10px] mt-1.5 font-bold text-gray-500 uppercase tracking-wider transition-colors">Zé</span>
+                                <span class="text-[9px] mt-1.5 font-bold text-gray-500 uppercase">Zé</span>
                             </label>
-                            
                             <label class="cursor-pointer group flex flex-col items-center">
-                                <input type="radio" name="barber" value="Jonas" class="peer barber-radio sr-only" id="radio-jonas">
+                                <input type="radio" name="barber" value="Jonas" id="radio-jonas" class="peer sr-only barber-radio">
                                 <div class="w-14 h-14 rounded-full border-2 border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=150&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale" alt="Jonas">
+                                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=150&auto=format&fit=crop" class="w-full h-full object-cover grayscale" alt="Jonas">
                                 </div>
-                                <span class="text-[10px] mt-1.5 font-bold text-gray-500 uppercase tracking-wider transition-colors">Jonas</span>
+                                <span class="text-[9px] mt-1.5 font-bold text-gray-500 uppercase">Jonas</span>
                             </label>
-                            
                         </div>
                     </div>
 
-                    <!-- Resumo dos Serviços -->
-                    <div class="bg-black/60 border border-white/10 rounded-xl p-4 shadow-inner relative">
-                        <label class="text-[10px] text-gray-500 font-bold uppercase tracking-widest absolute -top-2.5 left-4 bg-[#111] px-2">Serviços (<span id="form-count">0</span>)</label>
-                        <div id="resumo-servicos-form" class="space-y-1 mb-2 mt-1">
-                            <p class="text-gray-600 text-xs italic text-center">Nenhum serviço selecionado.</p>
+                    <!-- Resumo -->
+                    <div class="bg-black/60 border border-white/10 rounded-2xl p-4 relative">
+                        <label class="text-[10px] text-gray-500 font-bold uppercase absolute -top-2 left-4 bg-[#111] px-2">Itens (<span id="form-count">0</span>)</label>
+                        <div id="resumo-servicos-form" class="space-y-1.5 py-1">
+                            <p class="text-gray-600 text-[10px] italic text-center">Nenhum serviço selecionado.</p>
                         </div>
-                        <div class="flex justify-end mt-2"><a href="#servicos" class="text-gold text-[10px] uppercase font-bold underline decoration-gold/50">Editar Menu</a></div>
+                        <div class="flex justify-between items-center mt-3 pt-3 border-t border-white/5">
+                            <span class="text-xs font-bold text-gray-400">Total:</span>
+                            <span class="text-gold font-black" id="form-total-val">R$ 0</span>
+                        </div>
                     </div>
 
-                    <!-- Dados -->
+                    <!-- Inputs -->
                     <div class="space-y-3">
-                        <input type="text" id="client-name" required placeholder="O Seu Nome Completo" class="w-full bg-black/80 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-gold text-sm shadow-inner placeholder-gray-600">
+                        <input type="text" id="client-name" required placeholder="Nome Completo" class="w-full bg-black/80 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-gold text-sm shadow-inner placeholder-gray-600">
                         <div class="grid grid-cols-2 gap-3">
-                            <input type="date" id="booking-date" required class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-gray-300 focus:text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner uppercase">
+                            <input type="date" id="booking-date" required class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-gray-300 focus:text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner">
                             <input type="time" id="booking-time" required min="09:00" max="20:00" class="w-full bg-black/80 border border-white/10 rounded-xl px-3 py-4 text-gray-300 focus:text-white focus:outline-none focus:border-gold text-sm font-bold shadow-inner">
                         </div>
                     </div>
 
-                    <!-- Submit -->
-                    <button type="button" onclick="gerarTicketZap()" class="w-full bg-[#25D366] text-white font-black py-5 rounded-xl flex justify-center items-center gap-2 shadow-[0_10px_25px_rgba(37,211,102,0.3)] active:scale-95 transition-transform mt-4 relative overflow-hidden animate-shine">
-                        <i class="fab fa-whatsapp text-2xl"></i> <span class="text-sm uppercase tracking-widest">Enviar Pedido Vip</span>
+                    <button type="button" onclick="gerarTicketZap()" class="w-full bg-[#25D366] text-white font-black py-5 rounded-xl flex justify-center items-center gap-2 shadow-xl active:scale-95 transition-transform mt-4 relative overflow-hidden animate-shine">
+                        <i class="fab fa-whatsapp text-2xl"></i> <span class="text-xs uppercase tracking-widest">Enviar Pedido Via WhatsApp</span>
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer Simples App-Like -->
+    <!-- Footer -->
     <footer class="bg-[#030303] pt-10 pb-36 text-center border-t border-white/5 relative z-20">
-        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-16 h-16 object-contain mx-auto mb-4 opacity-50 grayscale">
+        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo" class="w-16 h-16 object-contain mx-auto mb-4 opacity-30 grayscale">
         <div class="flex justify-center gap-5 mb-6">
-            <a href="#" class="text-gray-600 hover:text-gold transition-colors text-lg"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-gray-600 hover:text-gold transition-colors text-lg"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-gray-600 hover:text-gold transition-colors text-xl"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-600 hover:text-gold transition-colors text-xl"><i class="fab fa-facebook"></i></a>
         </div>
-        <div class="text-gray-700 text-[9px] uppercase tracking-widest font-bold">&copy; 2026 Barbearia do Zé.</div>
+        <div class="text-gray-700 text-[10px] uppercase tracking-widest font-bold">&copy; 2026 Barbearia do Zé.</div>
     </footer>
 
     <script>
@@ -451,39 +491,52 @@
         let totalEstimado = 0;
         let isAtCheckout = false;
 
-        const smartCart = document.getElementById('smart-cart');
-        const genericBtn = document.getElementById('generic-btn');
-        const wppBtn = document.querySelector('.fixed.bottom-28'); // Botao flutuante WPP
-
         document.addEventListener("DOMContentLoaded", () => {
+            // Preloader
             setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; document.body.classList.remove('overflow-hidden'); }, 800); 
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 800); 
+                
                 document.getElementById('hero-social').classList.remove('translate-y-10', 'opacity-0');
                 document.getElementById('hero-title').classList.remove('translate-y-10', 'opacity-0');
+                
                 iniciarFOMO();
+                iniciarCarouselDepoimentos();
             }, 1000);
+
+            // Date min limit
             document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
             
-            const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            // Intersection Observers
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-            // Observador para esconder botões na área do agendamento (Garante funcionamento do teclado no mobile)
-            const observerCheckout = new IntersectionObserver((entries) => {
+            const checkoutObserver = new IntersectionObserver((entries) => {
                 isAtCheckout = entries[0].isIntersecting;
                 atualizarCarrinhoFlutuante();
             }, { threshold: 0.1 });
-            const agendamentoSec = document.getElementById('agendamento');
-            if (agendamentoSec) observerCheckout.observe(agendamentoSec);
+            checkoutObserver.observe(document.getElementById('agendamento'));
+
+            // Progress Bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("scroll-progress").style.width = scrolled + "%";
+            });
         });
 
+        // Mobile Menu
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
         function toggleMenu() {
-            if(mobileMenu.classList.contains('pointer-events-none')) {
+            const isHidden = mobileMenu.classList.contains('pointer-events-none');
+            if(isHidden) {
                 mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
-                menuBtn.innerHTML = '<i class="fas fa-times text-gold"></i>';
+                menuBtn.innerHTML = '<i class="fas fa-times"></i>';
             } else {
                 mobileMenu.classList.add('opacity-0');
                 setTimeout(() => mobileMenu.classList.add('pointer-events-none'), 300);
@@ -493,23 +546,23 @@
         menuBtn.addEventListener('click', toggleMenu);
         document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', toggleMenu));
 
+        // Toast
         function mostrarToast(mensagem) {
             const toast = document.getElementById('toast-msg');
             document.getElementById('toast-text').innerText = mensagem;
             toast.classList.remove('hidden', 'toast-anim');
             void toast.offsetWidth; 
             toast.classList.add('toast-anim');
-            setTimeout(() => { toast.classList.add('hidden'); }, 2000);
+            setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('toast-anim'); }, 2500);
         }
 
+        // Serviços Toggle
         window.toggleServico = function(elemento, nomeServico, preco) {
             if (navigator.vibrate) navigator.vibrate(30); 
-
-            const index = servicosSelecionados.findIndex(s => s.nome === nomeServico);
             
-            elemento.classList.remove('service-pop');
-            void elemento.offsetWidth;
+            const index = servicosSelecionados.findIndex(s => s.nome === nomeServico);
             elemento.classList.add('service-pop');
+            setTimeout(() => elemento.classList.remove('service-pop'), 300);
 
             if(index > -1) {
                 servicosSelecionados.splice(index, 1);
@@ -530,17 +583,19 @@
             document.getElementById('cart-count').innerText = count;
             document.getElementById('cart-total').innerText = `R$ ${totalEstimado}`;
             
-            // Esconder flutuantes se estivermos no checkout, para não tapar o teclado/formulário
+            const smartCart = document.getElementById('smart-cart');
+            const genericBtn = document.getElementById('generic-btn');
+
             if (isAtCheckout) {
-                if (genericBtn) genericBtn.classList.add('translate-y-[150%]');
-                if (smartCart) smartCart.classList.add('translate-y-full');
+                smartCart.classList.add('translate-y-full');
+                genericBtn.classList.add('translate-y-[150%]');
             } else {
                 if(count > 0) {
-                    if (genericBtn) genericBtn.classList.add('translate-y-[150%]');
-                    if (smartCart) smartCart.classList.remove('translate-y-full');
+                    smartCart.classList.remove('translate-y-full');
+                    genericBtn.classList.add('translate-y-[150%]');
                 } else {
-                    if (genericBtn) genericBtn.classList.remove('translate-y-[150%]');
-                    if (smartCart) smartCart.classList.add('translate-y-full');
+                    smartCart.classList.add('translate-y-full');
+                    genericBtn.classList.remove('translate-y-[150%]');
                 }
             }
         }
@@ -548,49 +603,76 @@
         function atualizarResumoFormulario() {
             const container = document.getElementById('resumo-servicos-form');
             document.getElementById('form-count').innerText = servicosSelecionados.length;
+            document.getElementById('form-total-val').innerText = `R$ ${totalEstimado}`;
             
             if(servicosSelecionados.length === 0) {
-                container.innerHTML = '<p class="text-gray-600 text-[10px] uppercase font-bold text-center py-2"><i class="fas fa-exclamation-circle text-gold mr-1"></i> Escolha os serviços acima</p>';
+                container.innerHTML = '<p class="text-gray-600 text-[10px] uppercase font-bold text-center py-2">Selecione serviços acima</p>';
             } else {
-                container.innerHTML = servicosSelecionados.map(s => `<div class="flex justify-between text-white text-[11px] font-bold"><span class="truncate pr-2">- ${s.nome}</span><span class="text-gold">R$${s.preco}</span></div>`).join('');
+                container.innerHTML = servicosSelecionados.map(s => `
+                    <div class="flex justify-between text-white text-[11px] font-bold">
+                        <span class="truncate pr-2">▫️ ${s.nome}</span>
+                        <span class="text-gold">R$${s.preco}</span>
+                    </div>`).join('');
             }
         }
 
         window.irParaCheckout = function() {
-            if (navigator.vibrate) navigator.vibrate(40);
             document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('form-container').classList.add('ring-2', 'ring-gold', 'bg-gold/5');
-            setTimeout(() => document.getElementById('form-container').classList.remove('ring-2', 'ring-gold', 'bg-gold/5'), 800);
         };
 
-        window.selecionarBarbeiroDireto = function(barbeiroNome) {
-            if (navigator.vibrate) navigator.vibrate([40, 20, 40]);
-            
-            if(barbeiroNome === 'Zé') document.getElementById('radio-ze').checked = true;
-            if(barbeiroNome === 'Jonas') document.getElementById('radio-jonas').checked = true;
-            
-            mostrarToast("👍 " + barbeiroNome + " Selecionado!");
-            
-            setTimeout(() => {
-                document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
-            }, 600);
+        window.selecionarBarbeiroDireto = function(nome) {
+            if (navigator.vibrate) navigator.vibrate([30, 10, 30]);
+            const radioId = nome === 'Zé' ? 'radio-ze' : 'radio-jonas';
+            document.getElementById(radioId).checked = true;
+            mostrarToast(`${nome} selecionado com sucesso!`);
+            document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
         };
 
+        // FOMO NOTIFICATION (Fixed Animation)
         function iniciarFOMO() {
             const fomoEl = document.getElementById('fomo-notification');
-            const nomes = ["Mateus", "Lucas", "João", "Pedro", "Felipe"];
-            const servicos = ["Combo VIP", "Corte Degradê", "Luzes Nevou"];
+            const nomes = ["Carlos", "Bruno", "Felipe", "Lucas", "Mateus", "Gabriel", "Tiago"];
+            const servicos = ["Combo VIP", "Corte Degradê", "Barboterapia", "Cabelo + Barba"];
             
-            function dispararNotificacao() {
+            function disparar() {
                 document.getElementById('fomo-name').innerText = nomes[Math.floor(Math.random() * nomes.length)];
                 document.getElementById('fomo-service').innerText = servicos[Math.floor(Math.random() * servicos.length)];
-                fomoEl.classList.remove('pointer-events-none');
-                fomoEl.classList.add('fomo-anim');
                 
-                setTimeout(() => { fomoEl.classList.remove('fomo-anim'); fomoEl.classList.add('pointer-events-none'); }, 4000);
-                setTimeout(dispararNotificacao, Math.floor(Math.random() * 20000) + 15000);
+                fomoEl.classList.add('fomo-visible');
+                
+                setTimeout(() => {
+                    fomoEl.classList.remove('fomo-visible');
+                }, 4000);
+                
+                const proximoTime = Math.floor(Math.random() * 20000) + 15000; // 15-35 segundos
+                setTimeout(disparar, proximoTime);
             }
-            setTimeout(dispararNotificacao, 5000);
+            
+            setTimeout(disparar, 6000);
+        }
+
+        // Carousel Depoimentos
+        function iniciarCarouselDepoimentos() {
+            const carousel = document.getElementById('carousel');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            carousel.addEventListener('scroll', () => {
+                const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+                dots.forEach((dot, i) => {
+                    if(i === index) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            });
+
+            // Auto Play
+            let scrollAmount = 0;
+            setInterval(() => {
+                if(carousel.scrollLeft >= (carousel.scrollWidth - carousel.offsetWidth)) {
+                    carousel.scrollLeft = 0;
+                } else {
+                    carousel.scrollLeft += carousel.offsetWidth;
+                }
+            }, 6000);
         }
 
         window.gerarTicketZap = function() {
@@ -600,20 +682,19 @@
             const barbeiro = document.querySelector('input[name="barber"]:checked').value;
 
             if(servicosSelecionados.length === 0) {
-                alert("⚠️ Selecione pelo menos um serviço no Menu para gerar o seu ticket.");
+                mostrarToast("⚠️ Escolha um serviço primeiro!");
                 document.getElementById('servicos').scrollIntoView({ behavior: 'smooth' });
                 return;
             }
             if(!nome || !data || !hora) {
-                alert("⚠️ Preencha nome, data e hora.");
+                mostrarToast("⚠️ Preencha todos os campos!");
                 return;
             }
             
-            const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-PT');
-            let listaServicos = "";
-            servicosSelecionados.forEach(s => { listaServicos += `▫️ ${s.nome}\n`; });
+            const dataFmt = new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+            let servicosTexto = servicosSelecionados.map(s => `▫️ ${s.nome} (R$${s.preco})`).join('\n');
             
-            const msg = `👑 *TICKET VIP* 👑\n\n👤 *Cliente:* ${nome}\n💈 *Mestre:* ${barbeiro}\n📅 *Data:* ${dataFormatada} às ${hora}\n\n✂️ *Serviços:*\n${listaServicos}\n💰 *Total:* R$ ${totalEstimado}\n\n_Aguardo confirmação._`;
+            const msg = `👑 *NOVO AGENDAMENTO VIP* 👑\n\n👤 *Cliente:* ${nome}\n💈 *Barbeiro:* ${barbeiro}\n📅 *Data:* ${dataFmt} às ${hora}\n\n✂️ *Serviços:*\n${servicosTexto}\n\n💰 *Total:* R$ ${totalEstimado}\n\n_Aguardo confirmação da barbearia!_`;
 
             window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
         }
