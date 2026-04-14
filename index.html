@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Xandão Barber Shop | Agendamento Inteligente</title>
+    <title>Barbearia do Zé | Agendamento Inteligente</title>
     
     <!-- Meta Tags -->
     <meta name="theme-color" content="#0a0a0a">
-    <meta name="description" content="Agendamento inteligente Xandão Barber Shop. Cortes de excelência, barba com ozono e muito mais.">
+    <meta name="description" content="Agendamento inteligente Barbearia do Zé. Cortes de excelência, barba com ozono e muito mais.">
 
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,8 +153,6 @@
         
         .focus-highlight { animation: pulseGold 2s ease-in-out; }
         .admin-tab.active { border-bottom-color: #F5B800; color: #F5B800; }
-        
-        .agendamento-concluido { opacity: 0.6; filter: grayscale(50%); border-color: #22c55e !important; background-color: rgba(34, 197, 94, 0.1) !important; }
     </style>
 </head>
 <body class="antialiased selection:bg-gold selection:text-dark relative">
@@ -168,7 +166,7 @@
 
     <!-- PRELOADER -->
     <div id="preloader" class="fixed inset-0 bg-[#050505] z-[9999] flex flex-col items-center justify-center transition-opacity duration-700 ease-out">
-        <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Xandão Logo" class="w-48 h-48 object-contain animate-pulse drop-shadow-[0_0_25px_rgba(245,184,0,0.4)]">
+        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé Logo" class="w-48 h-48 object-contain animate-pulse drop-shadow-[0_0_25px_rgba(245,184,0,0.4)]">
         <div class="mt-6 flex items-center gap-2">
             <div class="w-2 h-2 bg-gold rounded-full animate-bounce" style="animation-delay: 0s;"></div>
             <div class="w-2 h-2 bg-gold rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
@@ -211,7 +209,8 @@
     <!-- HEADER TOPO -->
     <header class="bg-[#0a0a0a]/90 backdrop-blur-xl py-3 sticky top-0 z-50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-b border-white/5">
         <div class="container mx-auto px-4 flex justify-between items-center max-w-2xl">
-            <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Xandão Barber Shop" class="h-10 object-contain hover:scale-105 transition-transform cursor-pointer">
+            <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Barbearia do Zé" class="h-10 object-contain hover:scale-105 transition-transform cursor-pointer">
+            <!-- Botão Chat Online -->
             <button type="button" onclick="App.abrirChatCliente()" class="hidden sm:flex text-sm font-bold bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-full border border-[#25D366]/30 hover:bg-[#25D366] hover:text-white transition-all duration-300 items-center gap-2">
                 <i class="fas fa-comment-dots text-lg"></i> Chat Online
             </button>
@@ -264,7 +263,7 @@
             
             <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-20 pointer-events-none">
                 <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <h1 class="text-3xl font-black text-white mb-2 uppercase tracking-wider drop-shadow-lg">Xandão Barber</h1>
+                    <h1 class="text-3xl font-black text-white mb-2 uppercase tracking-wider drop-shadow-lg">Barbearia do Zé</h1>
                     
                     <div class="flex flex-col items-start gap-1.5 mt-2 animate-fade-in-up delay-300">
                         <div class="flex -space-x-3 drop-shadow-lg">
@@ -316,20 +315,20 @@
                     <legend class="text-xs text-gold font-bold uppercase tracking-widest mb-4 block text-center w-full px-2"><i class="fas fa-cut mr-2"></i>1. Escolha o Profissional</legend>
                     <div class="flex gap-6 justify-center">
                         <label class="cursor-pointer group flex flex-col items-center relative">
-                            <input type="radio" name="barber" value="Alexandre" class="peer sr-only barber-radio" checked onchange="App.carregarHorarios()">
+                            <input type="radio" name="barber" value="Zé" class="peer sr-only barber-radio" checked onchange="App.carregarHorarios()">
                             <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
-                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/-587997570" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Alexandre">
+                                <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Ze&backgroundColor=1a1a1a&hair=short&facialHair=beardMedium" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Zé">
                                 <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
                             </div>
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Alexandre</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Zé</span>
                         </label>
                         <label class="cursor-pointer group flex flex-col items-center relative">
-                            <input type="radio" name="barber" value="Cleber" class="peer sr-only barber-radio" onchange="App.carregarHorarios()">
+                            <input type="radio" name="barber" value="Jonas" class="peer sr-only barber-radio" onchange="App.carregarHorarios()">
                             <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
-                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/207716706" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Cleber">
+                                <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Jonas&backgroundColor=1a1a1a&hair=shortWaved&facialHair=moustacheMagnum" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Jonas">
                                 <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
                             </div>
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Cleber</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Jonas</span>
                         </label>
                     </div>
                 </fieldset>
@@ -471,7 +470,7 @@
             </div>
             <div class="glass-card p-4 bg-[#111] overflow-hidden group">
                 <div class="rounded-2xl overflow-hidden h-56 mb-6 relative border border-white/10">
-                    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Fachada Xandão Barber Shop">
+                    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Fachada Barbearia">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     <div id="status-loja" class="absolute top-4 right-4 bg-gray-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 backdrop-blur-md border border-gray-400/50 transition-colors duration-500">
                         <div id="status-loja-dot" class="w-1.5 h-1.5 bg-white rounded-full opacity-50"></div>
@@ -479,7 +478,7 @@
                     </div>
                     <div class="absolute bottom-5 left-5">
                         <span class="bg-gold text-dark text-[10px] font-black uppercase px-2 py-1 rounded shadow-md inline-block mb-2">Unidade Matriz</span>
-                        <h4 class="text-white font-black text-xl drop-shadow-md">Xandão Barber Shop</h4>
+                        <h4 class="text-white font-black text-xl drop-shadow-md">Barbearia do Zé</h4>
                     </div>
                 </div>
                 <div class="flex flex-col gap-6 px-2">
@@ -500,8 +499,8 @@
 
     <!-- Footer -->
     <footer class="bg-[#030303] pt-12 pb-10 text-center border-t border-white/5 relative z-20 hidden sm:block">
-        <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Logo Xandão Barber Shop" class="h-14 object-contain mx-auto mb-6 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-        <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">&copy; <span id="current-year"></span> Xandão Barber Shop. Todos os direitos reservados.</p>
+        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" alt="Logo Barbearia do Zé" class="h-14 object-contain mx-auto mb-6 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+        <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">&copy; <span id="current-year"></span> Barbearia do Zé. Todos os direitos reservados.</p>
         <p class="text-gray-800 text-[9px] mt-2">Tecnologia por Inovamos.</p>
         <button type="button" onclick="App.abrirAdminPanel()" class="mt-8 text-[10px] bg-white/5 px-4 py-2 rounded-full text-gray-500 hover:text-gold hover:bg-gold/10 uppercase tracking-widest transition-all font-bold"><i class="fas fa-lock mr-1"></i> Acesso Restrito</button>
     </footer>
@@ -512,11 +511,11 @@
             <div class="bg-gradient-to-r from-[#111] to-[#050505] p-4 flex justify-between items-center border-b border-gold/20 shrink-0 sm:rounded-t-3xl">
                 <div class="flex items-center gap-3">
                     <div class="relative">
-                        <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" class="w-10 h-10 rounded-full border border-gold/30 object-cover bg-black">
+                        <img src="https://raw.githubusercontent.com/gilneilaurindo/Barbearia-do-Z-/main/logo%20(2).png" class="w-10 h-10 rounded-full border border-gold/30 object-cover bg-black">
                         <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-black rounded-full"></span>
                     </div>
                     <div>
-                        <h3 class="text-white font-bold text-sm">Xandão Barber Shop</h3>
+                        <h3 class="text-white font-bold text-sm">Barbearia do Zé</h3>
                         <p class="text-green-500 text-[9px] uppercase tracking-wider font-bold">Online</p>
                     </div>
                 </div>
@@ -538,7 +537,7 @@
     <div id="admin-modal" class="fixed inset-0 z-[99999] bg-[#0a0a0a] hidden flex-col transition-transform duration-500 transform translate-y-full overflow-hidden">
         <div class="bg-[#050505] border-b border-gold/20 p-4 flex justify-between items-center z-20 shadow-lg shrink-0">
             <h2 class="text-gold font-black uppercase tracking-widest flex items-center gap-2">
-                <i class="fas fa-shield-alt text-xl"></i> <div>Gestão <span class="text-white">Pro</span><div class="text-[8px] text-gray-500">Acesso Restrito</div></div>
+                <i class="fas fa-shield-alt text-xl"></i> <div>Gestão <span class="text-white">Pro</span><div class="text-[8px] text-gray-500">Logado como Zé</div></div>
             </h2>
             <button type="button" onclick="App.fecharAdminPanel()" class="text-white bg-white/10 w-8 h-8 rounded-full hover:bg-red-500/80 transition-colors"><i class="fas fa-times"></i></button>
         </div>
@@ -577,8 +576,8 @@
                     <span class="text-xs text-gray-400 font-bold uppercase"><i class="fas fa-filter mr-1"></i> Filtro:</span>
                     <select id="admin-barber-filter" onchange="App.atualizarAdminDashboard()" class="bg-black border border-gold/30 text-gold text-xs font-bold rounded px-2 py-1 outline-none">
                         <option value="Todos">Todos os Barbeiros</option>
-                        <option value="Alexandre">Alexandre</option>
-                        <option value="Cleber">Cleber</option>
+                        <option value="Zé">Zé</option>
+                        <option value="Jonas">Jonas</option>
                     </select>
                 </div>
                 <div id="admin-agenda-list" class="space-y-3"></div>
@@ -748,8 +747,8 @@
                 this.renderizarCalendario();
                 document.getElementById('current-year').innerText = this.dataAtual.getFullYear();
 
-                const savedName = localStorage.getItem('xandao_nome');
-                const savedPhone = localStorage.getItem('xandao_whatsapp');
+                const savedName = localStorage.getItem('ze_nome');
+                const savedPhone = localStorage.getItem('ze_whatsapp');
                 if(savedName) document.getElementById('client-name').value = savedName;
                 if(savedPhone) {
                     document.getElementById('client-phone').value = savedPhone;
@@ -779,30 +778,30 @@
             },
 
             carregarAgendamentosLocais() {
-                const agendamentosSalvos = localStorage.getItem('xandao_meus_agendamentos_v2');
+                const agendamentosSalvos = localStorage.getItem('ze_meus_agendamentos_v1');
                 if(agendamentosSalvos) this.meusAgendamentos = JSON.parse(agendamentosSalvos);
 
-                const cacheAgendaSalva = localStorage.getItem('xandao_agendas_cache_v2');
+                const cacheAgendaSalva = localStorage.getItem('ze_agendas_cache_v1');
                 if(cacheAgendaSalva) this.agendasCache = JSON.parse(cacheAgendaSalva);
             },
 
             salvarAgendamentosLocais() {
-                localStorage.setItem('xandao_meus_agendamentos_v2', JSON.stringify(this.meusAgendamentos));
-                localStorage.setItem('xandao_agendas_cache_v2', JSON.stringify(this.agendasCache));
+                localStorage.setItem('ze_meus_agendamentos_v1', JSON.stringify(this.meusAgendamentos));
+                localStorage.setItem('ze_agendas_cache_v1', JSON.stringify(this.agendasCache));
             },
 
             carregarBancosDeDados() {
-                const configSalva = localStorage.getItem('xandao_db_config_v2');
+                const configSalva = localStorage.getItem('ze_db_config_v1');
                 if(configSalva) this.configuracoesGlobais = JSON.parse(configSalva);
 
-                const msgSalva = localStorage.getItem('xandao_db_msgs_v2');
+                const msgSalva = localStorage.getItem('ze_db_msgs_v1');
                 if(msgSalva) { this.mensagensDB = JSON.parse(msgSalva); } 
                 else {
                     this.mensagensDB = [{ remetente: 'Cliente', nome: 'Visitante', telefone: '', texto: 'Boa tarde, a que horas abrem amanhã?', hora: '14:30' }];
-                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.salvarBanco('ze_db_msgs_v1', this.mensagensDB);
                 }
 
-                const servSalvo = localStorage.getItem('xandao_db_servicos_v2');
+                const servSalvo = localStorage.getItem('ze_db_servicos_v1');
                 if (servSalvo) { this.servicosDB = JSON.parse(servSalvo); } 
                 else {
                     this.servicosDB = [
@@ -826,20 +825,20 @@
                             { id: "p5", nome: "Pente de Madeira", desc: "Anti-frizz para barba e cabelo.", tempo: "0 min", preco: 15.00, imagem: "https://images.unsplash.com/photo-1581452273620-3375ea7f4d7b?q=80&w=200&auto=format&fit=crop" }
                         ] }
                     ];
-                    this.salvarBanco('xandao_db_servicos_v2', this.servicosDB);
+                    this.salvarBanco('ze_db_servicos_v1', this.servicosDB);
                 }
 
-                const depSalvo = localStorage.getItem('xandao_db_depoimentos_v2');
+                const depSalvo = localStorage.getItem('ze_db_depoimentos_v1');
                 if (depSalvo) { this.depoimentosDB = JSON.parse(depSalvo); } 
                 else {
                     this.depoimentosDB = [
-                        { id: "d1", nome: "Marcos Silva", texto: "Melhor corte! O Alexandre é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional.", estrelas: 5, tag: "Cliente Fiel", imagem: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" },
-                        { id: "d2", nome: "Rafael Gomes", texto: "Ambiente top, agendamento super rápido pelo site. O Cleber mandou muito bem no meu degradê.", estrelas: 5, tag: "Agendou pela App", imagem: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" }
+                        { id: "d1", nome: "Marcos Silva", texto: "Melhor corte! O Zé é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional.", estrelas: 5, tag: "Cliente Fiel", imagem: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" },
+                        { id: "d2", nome: "Rafael Gomes", texto: "Ambiente top, agendamento super rápido pelo site. O Jonas mandou muito bem no meu degradê.", estrelas: 5, tag: "Agendou pela App", imagem: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" }
                     ];
-                    this.salvarBanco('xandao_db_depoimentos_v2', this.depoimentosDB);
+                    this.salvarBanco('ze_db_depoimentos_v1', this.depoimentosDB);
                 }
 
-                const banSalvo = localStorage.getItem('xandao_db_banners_v2');
+                const banSalvo = localStorage.getItem('ze_db_banners_v1');
                 if(banSalvo) { this.bannersDB = JSON.parse(banSalvo); } 
                 else {
                     this.bannersDB = [
@@ -847,7 +846,7 @@
                         { id: "ban2", url: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop", alt: "Equipamentos" },
                         { id: "ban3", url: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop", alt: "Corte na régua" }
                     ];
-                    this.salvarBanco('xandao_db_banners_v2', this.bannersDB);
+                    this.salvarBanco('ze_db_banners_v1', this.bannersDB);
                 }
             },
 
@@ -1180,7 +1179,7 @@
 
                     let start = abH * 60 + abM; 
                     let end = fcH * 60 + fcM;  
-                    const chanceLivre = barbeiro === "Alexandre" ? 0.4 : 0.6; 
+                    const chanceLivre = barbeiro === "Zé" ? 0.4 : 0.6; 
                     
                     for(let i = start; i <= end; i += intervalo) {
                         let h = Math.floor(i/60).toString().padStart(2,'0');
@@ -1243,15 +1242,15 @@
                 if (!data) return this.showToast("Selecione a data!");
                 if (!this.horaSelecionada) return this.showToast("Selecione um horário disponível!");
                 if (!nome) return this.showToast("Qual é o seu nome?");
-                if (telLimpo.length < 9) return this.showToast("Preencha um número de contacto válido.");
+                if (telLimpo.length < 9) return this.showToast("Preencha o seu WhatsApp com indicativo.");
 
                 const total = this.carrinho.reduce((sum, item) => sum + item.preco, 0);
                 const servicosStr = this.carrinho.map(i => i.nome).join(', ');
 
                 const payload = { nome, whatsapp: telLimpo, barbeiro, data, hora: this.horaSelecionada, servicos: servicosStr, total, concluido: false };
 
-                localStorage.setItem('xandao_nome', nome);
-                localStorage.setItem('xandao_whatsapp', telInput);
+                localStorage.setItem('ze_nome', nome);
+                localStorage.setItem('ze_whatsapp', telInput);
 
                 const btn = document.getElementById('btn-confirmar');
                 btn.innerHTML = '<div class="loader border-dark border-t-white"></div>'; btn.disabled = true;
@@ -1355,11 +1354,11 @@
                 
                 const agora = new Date();
                 const horaStr = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
-                const nomeCliente = localStorage.getItem('xandao_nome') || "Visitante";
-                const telefoneCliente = this.removerMascara(localStorage.getItem('xandao_whatsapp') || ""); 
+                const nomeCliente = localStorage.getItem('ze_nome') || "Visitante";
+                const telefoneCliente = this.removerMascara(localStorage.getItem('ze_whatsapp') || ""); 
                 
                 this.mensagensDB.push({ remetente: 'Cliente', nome: nomeCliente, telefone: telefoneCliente, texto: texto, hora: horaStr });
-                this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                this.salvarBanco('ze_db_msgs_v1', this.mensagensDB);
                 
                 input.value = '';
                 this.renderizarChatCliente();
@@ -1367,8 +1366,8 @@
                 setTimeout(() => {
                     const horaResp = new Date();
                     const horaRespStr = `${String(horaResp.getHours()).padStart(2,'0')}:${String(horaResp.getMinutes()).padStart(2,'0')}`;
-                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Xandão', texto: 'Recebemos a tua mensagem! Um dos nossos barbeiros vai responder-te em breve.', hora: horaRespStr });
-                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Zé', texto: 'Recebemos a tua mensagem! Um dos nossos barbeiros vai responder-te em breve.', hora: horaRespStr });
+                    this.salvarBanco('ze_db_msgs_v1', this.mensagensDB);
                     this.renderizarChatCliente();
                     if(document.getElementById('admin-modal').classList.contains('flex')) this.renderizarAdminMensagens();
                 }, 1500);
@@ -1465,13 +1464,13 @@
                         const checkTitle = a.concluido ? 'Reverter Status' : 'Marcar como Concluído';
                         
                         if(a.concluido) {
-                            totalGanhos += a.total; // Contabiliza só os concluídos se desejar, ou todos. Aqui conta todos.
+                            totalGanhos += a.total; 
                         } else {
                             totalGanhos += a.total;
                         }
 
                         const dataFormatada = a.data.split('-').reverse().join('/');
-                        const msgDoBarbeiro = encodeURIComponent(`Fala ${a.nome.split(' ')[0]}, tudo bem? Aqui é do Xandão Barber Shop. Confirmando o teu agendamento de ${a.servicos} para o dia ${dataFormatada} às ${a.hora} com o ${a.barbeiro}. Esperamos por ti! ✂️💈`);
+                        const msgDoBarbeiro = encodeURIComponent(`Fala ${a.nome.split(' ')[0]}, tudo bem? Aqui é do Zé Barber Shop. Confirmando o teu agendamento de ${a.servicos} para o dia ${dataFormatada} às ${a.hora} com o ${a.barbeiro}. Esperamos por ti! ✂️💈`);
                         const linkWhatsAppCliente = `https://wa.me/55${a.whatsapp}?text=${msgDoBarbeiro}`;
 
                         htmlAgendas += `
@@ -1570,8 +1569,8 @@
                 if(resposta) {
                     const agora = new Date();
                     const horaStr = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
-                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Xandão', texto: resposta, hora: horaStr });
-                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Zé', texto: resposta, hora: horaStr });
+                    this.salvarBanco('ze_db_msgs_v1', this.mensagensDB);
                     this.showToast('Resposta enviada!', 'success');
                     this.renderizarAdminMensagens();
                 }
@@ -1582,8 +1581,8 @@
                 if(resposta) {
                     const agora = new Date();
                     const horaStr = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
-                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Xandão', texto: resposta, hora: horaStr });
-                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Zé', texto: resposta, hora: horaStr });
+                    this.salvarBanco('ze_db_msgs_v1', this.mensagensDB);
                     this.showToast('Pedido de feedback enviado!', 'success');
                     this.renderizarAdminMensagens();
                 }
@@ -1597,7 +1596,7 @@
                 if(!abertura || !fecho || !intervalo) return this.showToast("Preencha todos os campos da configuração!");
 
                 this.configuracoesGlobais = { abertura, fecho, intervalo: parseInt(intervalo) };
-                this.salvarBanco('xandao_db_config_v2', this.configuracoesGlobais);
+                this.salvarBanco('ze_db_config_v1', this.configuracoesGlobais);
 
                 this.agendasCache = {};
                 this.salvarAgendamentosLocais();
@@ -1622,8 +1621,8 @@
                         <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Nova Hora</label><input type="time" id="ag-hora" value="${ag.hora}" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
                     </div>
                     <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Barbeiro</label><select id="ag-barbeiro" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none">
-                        <option value="Alexandre" ${ag.barbeiro === 'Alexandre' ? 'selected' : ''}>Alexandre</option>
-                        <option value="Cleber" ${ag.barbeiro === 'Cleber' ? 'selected' : ''}>Cleber</option>
+                        <option value="Zé" ${ag.barbeiro === 'Zé' ? 'selected' : ''}>Zé</option>
+                        <option value="Jonas" ${ag.barbeiro === 'Jonas' ? 'selected' : ''}>Jonas</option>
                     </select></div>
                     <button type="button" onclick="App.salvarAgendamento()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Guardar Reagendamento</button>
                 `;
@@ -1661,7 +1660,7 @@
                 this.meusAgendamentos[idx].data = data;
                 this.meusAgendamentos[idx].hora = hora;
                 this.meusAgendamentos[idx].barbeiro = barbeiro;
-                this.meusAgendamentos[idx].concluido = false; // Reset conclusion on reschedule
+                this.meusAgendamentos[idx].concluido = false; 
 
                 this.salvarAgendamentosLocais();
                 this.atualizarAdminDashboard();
@@ -1777,7 +1776,7 @@
                     this.servicosDB[catIndex].itens.push(newItem);
                 }
 
-                this.salvarBanco('xandao_db_servicos_v2', this.servicosDB);
+                this.salvarBanco('ze_db_servicos_v1', this.servicosDB);
                 this.renderizarAdminCatalogo(); 
                 this.renderizarServicos(); 
                 this.fecharEditorGeral();
@@ -1787,7 +1786,7 @@
             excluirCatalogo(catIndex, itemIndex) {
                 if(confirm("Excluir este item?")) {
                     this.servicosDB[catIndex].itens.splice(itemIndex, 1);
-                    this.salvarBanco('xandao_db_servicos_v2', this.servicosDB);
+                    this.salvarBanco('ze_db_servicos_v1', this.servicosDB);
                     this.renderizarAdminCatalogo(); this.renderizarServicos();
                 }
             },
@@ -1850,7 +1849,7 @@
                 if(idx > -1) this.depoimentosDB[idx] = newDep;
                 else this.depoimentosDB.unshift(newDep); 
 
-                this.salvarBanco('xandao_db_depoimentos_v2', this.depoimentosDB);
+                this.salvarBanco('ze_db_depoimentos_v1', this.depoimentosDB);
                 this.renderizarAdminDepoimentos();
                 this.renderizarDepoimentos(); 
                 this.fecharEditorGeral();
@@ -1860,7 +1859,7 @@
             excluirDepoimento(idx) {
                 if(confirm("Excluir depoimento?")) {
                     this.depoimentosDB.splice(idx, 1);
-                    this.salvarBanco('xandao_db_depoimentos_v2', this.depoimentosDB);
+                    this.salvarBanco('ze_db_depoimentos_v1', this.depoimentosDB);
                     this.renderizarAdminDepoimentos(); this.renderizarDepoimentos();
                 }
             },
@@ -1915,7 +1914,7 @@
                 if(idx > -1) this.bannersDB[idx] = newBan;
                 else this.bannersDB.push(newBan);
 
-                this.salvarBanco('xandao_db_banners_v2', this.bannersDB);
+                this.salvarBanco('ze_db_banners_v1', this.bannersDB);
                 this.renderizarAdminBanners();
                 this.renderizarBanners(); 
                 this.fecharEditorGeral();
@@ -1925,7 +1924,7 @@
             excluirBanner(idx) {
                 if(confirm("Excluir este banner?")) {
                     this.bannersDB.splice(idx, 1);
-                    this.salvarBanco('xandao_db_banners_v2', this.bannersDB);
+                    this.salvarBanco('ze_db_banners_v1', this.bannersDB);
                     this.renderizarAdminBanners(); this.renderizarBanners();
                 }
             },
